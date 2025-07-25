@@ -1,0 +1,6 @@
+// 1.21.5	-999999999-01-01T00:00:00	Daggerlance/Block Loot Tables
+b3993b354df885cec4d7f940d9755c4ea3f81a7a data/daggerlance/loot_table/blocks/lancium_block.json
+fa572db7ead4a35c2bec645d0e017bdc5d4e1ab7 data/daggerlance/loot_table/blocks/lancium_brick_slab.json
+d9e3785a1d77d5fa3cc806886c2b27d6fec3d68c data/daggerlance/loot_table/blocks/lancium_brick_stairs.json
+9f0440cb26c180d167f35ae461cb4eb54c654248 data/daggerlance/loot_table/blocks/lancium_brick_wall.json
+73b4c088f27de03eea82cd92aa406a04f9a98fb3 data/daggerlance/loot_table/blocks/lancium_bricks.json

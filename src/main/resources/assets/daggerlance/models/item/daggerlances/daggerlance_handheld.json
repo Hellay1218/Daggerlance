@@ -1,0 +1,6 @@
+{
+	"parent": "daggerlance:item/daggerlances/template_daggerlance_handheld",
+	"textures": {
+		"layer0": "daggerlance:item/daggerlances/daggerlance_handheld"
+	}
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "daggerlance:block/lancium_brick_slab"
+    },
+    "type=double": {
+      "model": "daggerlance:block/lancium_bricks"
+    },
+    "type=top": {
+      "model": "daggerlance:block/lancium_brick_slab_top"
+    }
+  }
+}

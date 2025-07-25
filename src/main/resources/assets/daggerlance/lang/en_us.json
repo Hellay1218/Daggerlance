@@ -1,0 +1,21 @@
+{
+  "item.daggerlance.daggerlance": "Daggerlance",
+  "item.daggerlance.lancium_ingot": "Lancium Ingot",
+  "item.daggerlance.lancium_block": "Block of Lancium ",
+  "item.daggerlance.lancium_bricks": "Lancium Bricks",
+  "item.daggerlance.lancium_brick_stairs": "Lancium Brick Stairs",
+  "item.daggerlance.lancium_brick_slab": "Lancium Brick Slab",
+  "item.daggerlance.lancium_brick_wall": "Lancium Brick Wall",
+
+  "itemgroup.daggerlance.daggerlance_group": "Daggerlance",
+
+  "tooltip.daggerlance.name.gold": "Royalty",
+  "tooltip.daggerlance.name.vana": "Vana",
+  "tooltip.daggerlance.name.rose": "Rose",
+  "tooltip.daggerlance.name.jade": "Jade",
+  "tooltip.daggerlance.name.moon": "Moon",
+
+  "tooltip.daggerlance.lore.default": "Shift right click on an anvil or\nsmithing table to change skin",
+  "tooltip.daggerlance.lore.vana": "A good example of barrens craftsmanship. Vana is an ore used by barrens \nthat is found in their dimension. After many years they have mastered using vana\nto the point that they can make advance items that nobody can replicate.\nThis is purely designed to permanently harm your opponent, a dead soldier is \nthe proof of how strong their will is, an injured one is the proof of how far\nbarrens will to go to make you suffer before death",
+  "tooltip.daggerlance.lore.hidden":"Press [Shift] to show lore"
+}

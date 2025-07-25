@@ -1,0 +1,6 @@
+// 1.21.5	-999999999-01-01T00:00:00	Daggerlance/Tags for minecraft:block
+9f0b0cbfe473abb5c18066d16fd4afae41504592 data/minecraft/tags/block/beacon_base_blocks.json
+9a0bcc96faec80db0a6c404c18465c5803c1d722 data/minecraft/tags/block/mineable/pickaxe.json
+fe15c4b35f4782074a8eee593cdbc204ebca966b data/minecraft/tags/block/slabs.json
+8fb1dd14e2139e3c59fa30d137ae44bf44131c80 data/minecraft/tags/block/stairs.json
+e1eb31c74889b4e469df20cd0978c1766b5bb993 data/minecraft/tags/block/walls.json

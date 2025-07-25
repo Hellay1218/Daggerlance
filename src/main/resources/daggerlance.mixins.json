@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "net.hellay.daggerlance.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ItemEntityMixin",
+    "PlayerEntityMixin",
+    "WitherSkeletonEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+	}
+}
