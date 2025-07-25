@@ -15,11 +15,11 @@ public abstract class ItemEntityMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         //ItemStack drop = DaggerlanceItems.LANCIUM_INGOT.getDefaultStack();
-        ItemStack drop = Items.NETHERITE_INGOT.getDefaultStack();
+        ItemStack drop = Items.NETHERITE_SCRAP.getDefaultStack();
         ItemEntity itemEntity = (ItemEntity) (Object) this;
         if (itemEntity.getStack().getItem() == DaggerlanceItems.DAGGERLANCE && itemEntity.isOnFire()) {
 
-            drop.setCount(1);
+            drop.setCount(itemEntity.getRandom().nextInt(4));
             itemEntity.getWorld().spawnEntity(new ItemEntity(itemEntity.getWorld() , itemEntity.getX() , itemEntity.getY() , itemEntity.getZ() , drop));
             itemEntity.discard();
         }

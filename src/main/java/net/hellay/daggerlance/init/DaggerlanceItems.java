@@ -23,6 +23,7 @@ public class DaggerlanceItems {
             .rarity(Rarity.RARE)
             .component(DataComponentTypes.TOOL, DaggerlanceItem.createToolComponent())
             .repairable(DaggerlanceItems.LANCIUM_INGOT)
+            .repairable(Items.NETHERITE_INGOT)
             .attributeModifiers(DaggerlanceItem.createAttributeModifiers())
             .enchantable(15)
             .component(DataComponentTypes.WEAPON, new WeaponComponent(1))

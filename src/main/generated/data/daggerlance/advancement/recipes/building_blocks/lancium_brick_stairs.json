@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lancium_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "daggerlance:lancium_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "daggerlance:lancium_brick_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lancium_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "daggerlance:lancium_brick_stairs"
+    ]
+  }
+}
