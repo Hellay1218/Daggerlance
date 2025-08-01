@@ -22,8 +22,8 @@ public class DaggerlanceBlockTagProvider extends FabricTagProvider.BlockTagProvi
                 .add(DaggerlanceBlocks.LANCIUM_BRICK_SLAB)
                 .add(DaggerlanceBlocks.LANCIUM_BRICK_WALL);
 
-        getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS)
-                .add(DaggerlanceBlocks.LANCIUM_BLOCK);
+//        getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS)
+//                .add(DaggerlanceBlocks.LANCIUM_BLOCK);
 
 
         getOrCreateTagBuilder(BlockTags.STAIRS).add(DaggerlanceBlocks.LANCIUM_BRICK_STAIRS);
