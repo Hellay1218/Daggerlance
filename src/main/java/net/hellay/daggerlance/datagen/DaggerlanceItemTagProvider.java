@@ -18,7 +18,7 @@ public class DaggerlanceItemTagProvider extends FabricTagProvider.ItemTagProvide
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(ItemTags.SWORDS)
                 .add(DaggerlanceItems.DAGGERLANCE);
-        getOrCreateTagBuilder(ItemTags.BEACON_PAYMENT_ITEMS)
-                .add(DaggerlanceItems.LANCIUM_INGOT);
+//        getOrCreateTagBuilder(ItemTags.BEACON_PAYMENT_ITEMS)
+//                .add(DaggerlanceItems.LANCIUM_INGOT);
     }
 }
