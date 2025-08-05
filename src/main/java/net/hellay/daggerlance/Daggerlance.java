@@ -40,7 +40,7 @@ public class Daggerlance implements ModInitializer {
 		DaggerlanceParticles.registerModParticles();
 
 		WitherSkeletonDeathEvent.init();
-		DaggerlanceToolTipEvent.init();
+		//DaggerlanceToolTipEvent.init();
 
 	}
 }

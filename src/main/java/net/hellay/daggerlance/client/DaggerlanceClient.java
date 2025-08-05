@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.hellay.daggerlance.client.particle.DaggerlanceSweepParticle;
+import net.hellay.daggerlance.event.DaggerlanceToolTipEvent;
 import net.hellay.daggerlance.init.DaggerlanceParticles;
 
 @Environment(EnvType.CLIENT)
@@ -19,5 +20,6 @@ public class DaggerlanceClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.ROSE_LEAF_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.JADE_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.VANA_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
+        DaggerlanceToolTipEvent.init();
     }
 }
