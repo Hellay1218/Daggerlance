@@ -18,7 +18,9 @@ import java.util.function.Function;
 
 public class DaggerlanceItems {
 
-    public static final Item LANCIUM_INGOT = registerItem("lancium_ingot" , Item::new , new Item.Settings().fireproof());
+    public static final Item LANCIUM_INGOT = registerItem("lancium_ingot" , Item::new , new Item.Settings()
+            .trimMaterial(DaggerlanceTrimMaterials.LANCIUM)
+            .fireproof());
     public static final Item DAGGERLANCE = registerItem("daggerlance", DaggerlanceItem::new , new Item.Settings()
             .rarity(Rarity.RARE)
             .component(DataComponentTypes.TOOL, DaggerlanceItem.createToolComponent())

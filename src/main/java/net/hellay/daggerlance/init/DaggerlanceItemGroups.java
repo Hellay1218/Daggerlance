@@ -1,12 +1,15 @@
 package net.hellay.daggerlance.init;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.item.DaggerlanceItem;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
@@ -47,6 +50,14 @@ public class DaggerlanceItemGroups {
     // called in the Daggerlance (Main) Class so the ItemGroups get registered (idk why im explaining these)
     public static void registerModItemGroups() {
         Daggerlance.LOGGER.info("Registering item group(s) for" + Daggerlance.MOD_NAME + "...");
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            entries.addAfter(Items.NETHERITE_INGOT , DaggerlanceItems.LANCIUM_INGOT);
+        });
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
+            entries.addAfter(Items.NETHERITE_SWORD , DaggerlanceItems.DAGGERLANCE);
+        });
     }
 
 }

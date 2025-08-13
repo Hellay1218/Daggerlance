@@ -1,5 +1,6 @@
 {
   "tag.item.daggerlance.drops_daggerlance": "Weapons dropping Daggerlance",
+
   "item.daggerlance.daggerlance": "Daggerlance",
   "item.daggerlance.lancium_ingot": "Lancium Ingot",
   "item.daggerlance.lancium_block": "Block of Lancium ",
@@ -7,6 +8,8 @@
   "item.daggerlance.lancium_brick_stairs": "Lancium Brick Stairs",
   "item.daggerlance.lancium_brick_slab": "Lancium Brick Slab",
   "item.daggerlance.lancium_brick_wall": "Lancium Brick Wall",
+
+  "trim_material.daggerlance.lancium": "Lancium Material",
 
   "itemgroup.daggerlance.daggerlance_group": "Daggerlance",
 
