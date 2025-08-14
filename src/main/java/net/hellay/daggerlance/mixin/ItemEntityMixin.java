@@ -18,8 +18,7 @@ public abstract class ItemEntityMixin {
         ItemStack drop = DaggerlanceItems.LANCIUM_INGOT.getDefaultStack();
         ItemEntity itemEntity = (ItemEntity) (Object) this;
         if (itemEntity.getStack().getItem() == DaggerlanceItems.DAGGERLANCE && itemEntity.isOnFire()) {
-
-            drop.setCount(itemEntity.getRandom().nextInt(3));
+            drop.setCount(itemEntity.getRandom().nextInt(4)+1);
             itemEntity.getWorld().spawnEntity(new ItemEntity(itemEntity.getWorld() , itemEntity.getX() , itemEntity.getY() , itemEntity.getZ() , drop));
             itemEntity.discard();
         }
