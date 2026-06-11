@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "daggerlance": {
+      "conditions": {
+        "items": [
+          {
+            "items": "daggerlance:daggerlance"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "daggerlance:block/lancium_bricks",
+    "description": {
+      "translate": "advancements.task.daggerlance.backstabbed"
+    },
+    "icon": {
+      "count": 1,
+      "id": "daggerlance:daggerlance"
+    },
+    "title": "Daggerlance"
+  },
+  "requirements": [
+    [
+      "daggerlance"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

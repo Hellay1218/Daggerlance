@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:daggerlance/lancium",
+  "criteria": {
+    "rune_fusion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "daggerlance:impact_rune"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:block/lancium_bricks",
+    "description": {
+      "translate": "advancements.task.daggerlance.rune"
+    },
+    "icon": {
+      "count": 1,
+      "id": "daggerlance:blank_rune"
+    },
+    "title": "Fusion"
+  },
+  "requirements": [
+    [
+      "rune_fusion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

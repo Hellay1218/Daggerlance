@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "daggerlance:block/lancium_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "daggerlance:block/lancium_pillar"
+    },
+    "axis=z": {
+      "model": "daggerlance:block/lancium_pillar_horizontal",
+      "x": 90
+    }
+  }
+}

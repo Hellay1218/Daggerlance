@@ -1,45 +1,31 @@
 package net.hellay.daggerlance.mixin;
 
-import net.hellay.daggerlance.init.DaggerlanceItems;
-import net.hellay.daggerlance.init.DaggerlanceParticles;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.hellay.daggerlance.item.DaggerlanceItem;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.CustomModelDataComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemStack;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import java.util.List;
-
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class PlayerEntityMixin {
 
     //thank you medecoole <3
-    @ModifyArg(method = "spawnSweepAttackParticles", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;spawnParticles(Lnet/minecraft/particle/ParticleEffect;DDDIDDDD)I"), index = 0)
-    private ParticleEffect injectSpawnSweepAttackParticles(ParticleEffect original) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-        if (player.getMainHandStack().isOf(DaggerlanceItems.DAGGERLANCE)) {
-            ParticleEffect particleEffect = DaggerlanceParticles.DAGGERLANCE_SWEEP_PARTICLE_TYPE;
-            String skin = player.getMainHandStack().getOrDefault(DataComponentTypes.CUSTOM_MODEL_DATA , new CustomModelDataComponent(List.of(), List.of(), List.of(DaggerlanceItem.Skin.DEFAULT.getSkinName()), List.of())).getString(0);
-            assert skin != null;
-            if(skin.equals(DaggerlanceItem.Skin.GOLD.getSkinName())){
-                particleEffect = DaggerlanceParticles.ROYALTY_SWEEP_PARTICLE_TYPE;
-            } else if (skin.equals(DaggerlanceItem.Skin.MOON.getSkinName())){
-                particleEffect = DaggerlanceParticles.MOON_SWEEP_PARTICLE_TYPE;
-            }else if (skin.equals(DaggerlanceItem.Skin.ROSE.getSkinName())){
-                particleEffect = player.getRandom().nextBoolean() ? DaggerlanceParticles.ROSE_SWEEP_PARTICLE_TYPE : DaggerlanceParticles.ROSE_LEAF_SWEEP_PARTICLE_TYPE;
-            }else if (skin.equals(DaggerlanceItem.Skin.JADE.getSkinName())){
-                particleEffect = DaggerlanceParticles.JADE_SWEEP_PARTICLE_TYPE;
-            }else if (skin.equals(DaggerlanceItem.Skin.VANA.getSkinName())){
-                particleEffect = DaggerlanceParticles.VANA_SWEEP_PARTICLE_TYPE;
-            }
 
-            if (particleEffect != null) {
-                return particleEffect;
-            }
+    @WrapOperation(method = "doSweepAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"))
+    private int daggerlance$modifySweepParticles(ServerLevel instance, ParticleOptions particleOptions, double d, double e, double f, int i, double g, double h, double j, double k, Operation<Integer> original) {
+        Player player = (Player) (Object) this;
+        ItemStack weapon = player.getWeaponItem();
+        if (player.getWeaponItem().getItem() instanceof DaggerlanceItem) {
+            particleOptions = DaggerlanceItem.getSkin(weapon).getSweepParticle();
         }
-        return original;
+        return original.call(instance,particleOptions,d,e,f,i,g,h,j,k);
     }
 }

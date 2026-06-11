@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:daggerlance/lancium",
+  "criteria": {
+    "killed_wither_skeleton_with_daggerlance": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:wither_skeleton"
+            }
+          }
+        ],
+        "killing_blow": {
+          "source_entity": {
+            "equipment": {
+              "mainhand": {
+                "items": "daggerlance:daggerlance"
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.challenge.daggerlance.kill_wither_skeleton"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "daggerlance:daggerlance"
+    },
+    "title": "Backstabbed"
+  },
+  "requirements": [
+    [
+      "killed_wither_skeleton_with_daggerlance"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

@@ -4,66 +4,79 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.hellay.daggerlance.init.DaggerlanceBlocks;
 import net.hellay.daggerlance.init.DaggerlanceItems;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.concurrent.CompletableFuture;
 
 public class DaggerlanceRecipeProvider extends FabricRecipeProvider {
-    public DaggerlanceRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+
+    public DaggerlanceRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
-    }
-
-    @Override
-    protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registryLookup, RecipeExporter exporter) {
-        return new RecipeGenerator(registryLookup, exporter) {
-            @Override
-            public void generate() {
-                RegistryWrapper.Impl<Item> itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
-                createShapeless(RecipeCategory.MISC , DaggerlanceItems.LANCIUM_INGOT)
-                        .input(Items.NETHERITE_SCRAP , 4)
-                        .input(Items.OBSIDIAN, 4)
-                        .criterion(hasItem(Items.NETHERITE_SCRAP) , conditionsFromItem(Items.NETHERITE_SCRAP))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.MISC , DaggerlanceBlocks.LANCIUM_BLOCK)
-                        .input(DaggerlanceItems.LANCIUM_INGOT , 9)
-                        .criterion(hasItem(DaggerlanceItems.LANCIUM_INGOT) , conditionsFromItem(DaggerlanceItems.LANCIUM_INGOT))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.BUILDING_BLOCKS,DaggerlanceBlocks.LANCIUM_BRICKS)
-                        .pattern("##")
-                        .pattern("##")
-                        .input('#' , DaggerlanceItems.LANCIUM_INGOT)
-                        .criterion(hasItem(DaggerlanceItems.LANCIUM_INGOT) , conditionsFromItem(DaggerlanceItems.LANCIUM_INGOT))
-                        .offerTo(exporter);
-
-                createStairsRecipe(DaggerlanceBlocks.LANCIUM_BRICK_STAIRS , Ingredient.ofItem(DaggerlanceBlocks.LANCIUM_BRICKS))
-                        .criterion(hasItem(DaggerlanceBlocks.LANCIUM_BRICKS) , conditionsFromItem(DaggerlanceBlocks.LANCIUM_BRICKS))
-                        .offerTo(exporter);
-
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS,DaggerlanceBlocks.LANCIUM_BRICK_SLAB , Ingredient.ofItem(DaggerlanceBlocks.LANCIUM_BRICKS))
-                        .criterion(hasItem(DaggerlanceBlocks.LANCIUM_BRICKS) , conditionsFromItem(DaggerlanceBlocks.LANCIUM_BRICKS))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.DECORATIONS,DaggerlanceBlocks.LANCIUM_BRICK_WALL)
-                        .pattern("###")
-                        .pattern("###")
-                        .input('#' , DaggerlanceBlocks.LANCIUM_BRICKS)
-                        .criterion(hasItem(DaggerlanceBlocks.LANCIUM_BRICKS) , conditionsFromItem(DaggerlanceBlocks.LANCIUM_BRICKS))
-                        .offerTo(exporter);
-            }
-        };
     }
 
     @Override
     public String getName() {
         return "DaggerlanceRecipeProvider";
+    }
+
+    @Override
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+        return new RecipeProvider(provider, recipeOutput) {
+            @Override
+            public void buildRecipes() {
+                shapeless(RecipeCategory.MISC, DaggerlanceItems.LANCIUM_INGOT)
+                        .requires(Items.NETHERITE_SCRAP, 4)
+                        .requires(Items.OBSIDIAN, 4)
+                        .unlockedBy(getHasName((Items.NETHERITE_SCRAP)), has(Items.NETHERITE_SCRAP))
+                        .save(recipeOutput);
+
+                shapeless(RecipeCategory.MISC, DaggerlanceBlocks.LANCIUM_BLOCK)
+                        .requires(DaggerlanceItems.LANCIUM_INGOT, 9)
+                        .unlockedBy(getHasName(DaggerlanceItems.LANCIUM_INGOT), has(DaggerlanceItems.LANCIUM_INGOT))
+                        .save(recipeOutput);
+
+                shaped(RecipeCategory.BUILDING_BLOCKS, DaggerlanceBlocks.LANCIUM_BRICKS)
+                        .pattern("##")
+                        .pattern("##")
+                        .define('#', DaggerlanceItems.LANCIUM_INGOT)
+                        .unlockedBy(getHasName(DaggerlanceItems.LANCIUM_INGOT), has(DaggerlanceItems.LANCIUM_INGOT))
+                        .save(recipeOutput);
+
+                stairBuilder(DaggerlanceBlocks.LANCIUM_BRICK_STAIRS, Ingredient.of(DaggerlanceBlocks.LANCIUM_BRICKS))
+                        .unlockedBy(getHasName(DaggerlanceBlocks.LANCIUM_BRICKS), has(DaggerlanceBlocks.LANCIUM_BRICKS))
+                        .save(recipeOutput);
+
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, DaggerlanceBlocks.LANCIUM_BRICK_SLAB, Ingredient.of(DaggerlanceBlocks.LANCIUM_BRICKS))
+                        .unlockedBy(getHasName(DaggerlanceBlocks.LANCIUM_BRICKS), has(DaggerlanceBlocks.LANCIUM_BRICKS))
+                        .save(recipeOutput);
+
+                wall(RecipeCategory.BUILDING_BLOCKS, DaggerlanceBlocks.LANCIUM_BRICK_WALL, DaggerlanceBlocks.LANCIUM_BRICKS);
+
+                shaped(RecipeCategory.MISC, DaggerlanceItems.BLANK_RUNE)
+                        .pattern(" # ")
+                        .pattern(" # ")
+                        .define('#', DaggerlanceItems.LANCIUM_INGOT)
+                        .unlockedBy(getHasName(DaggerlanceItems.LANCIUM_INGOT), has(DaggerlanceItems.LANCIUM_INGOT))
+                        .save(recipeOutput);
+
+                shaped(RecipeCategory.MISC, DaggerlanceBlocks.LANCIUM_PILLAR)
+                        .pattern(" # ")
+                        .pattern(" # ")
+                        .define('#', DaggerlanceBlocks.LANCIUM_BRICK_SLAB)
+                        .unlockedBy(getHasName(DaggerlanceBlocks.LANCIUM_BRICK_SLAB), has(DaggerlanceBlocks.LANCIUM_BRICK_SLAB))
+                        .save(recipeOutput);
+
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS,DaggerlanceBlocks.LANCIUM_PILLAR,DaggerlanceBlocks.LANCIUM_BRICKS);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS,DaggerlanceBlocks.LANCIUM_BRICK_SLAB,DaggerlanceBlocks.LANCIUM_BRICKS,2);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS,DaggerlanceBlocks.LANCIUM_BRICK_WALL,DaggerlanceBlocks.LANCIUM_BRICKS,1);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS,DaggerlanceBlocks.LANCIUM_BRICK_STAIRS,DaggerlanceBlocks.LANCIUM_BRICKS,1);
+
+            }
+        };
     }
 }

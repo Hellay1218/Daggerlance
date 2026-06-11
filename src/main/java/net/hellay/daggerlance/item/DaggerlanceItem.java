@@ -1,107 +1,172 @@
 package net.hellay.daggerlance.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.CustomModelDataComponent;
-import net.minecraft.component.type.ToolComponent;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUsageContext;
-
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
+import net.hellay.daggerlance.Daggerlance;
+import net.hellay.daggerlance.init.DaggerlanceParticles;
+import net.hellay.daggerlance.item.tooltip.DaggerlanceRuneTooltipComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwingAnimationType;
+import net.minecraft.world.item.component.CustomModelData;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.SwingAnimation;
+import net.minecraft.world.item.component.Tool;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 
-public class DaggerlanceItem extends Item {
-    public DaggerlanceItem(Settings settings) {
-        super(settings);
+public class DaggerlanceItem extends SingleSlotAbilityItem {
+
+    public final static CustomModelData DEFAULT_MODEL_DATA = new CustomModelData(List.of(), List.of(), List.of(DaggerlanceItem.Skin.DEFAULT.getSkinName()), List.of());
+    public final static String IMPACT_RUNE_ID = "impact";
+
+    public DaggerlanceItem(Properties properties) {
+        super(properties);
     }
 
-    public static AttributeModifiersComponent createAttributeModifiers() {
-        return AttributeModifiersComponent.builder()
-                .add(
-                        EntityAttributes.ATTACK_DAMAGE,
-                        new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID, 7.0, EntityAttributeModifier.Operation.ADD_VALUE),
-                        AttributeModifierSlot.MAINHAND
-                )
-                .add(
-                        EntityAttributes.ATTACK_SPEED,
-                        new EntityAttributeModifier(BASE_ATTACK_SPEED_MODIFIER_ID, -2.7F, EntityAttributeModifier.Operation.ADD_VALUE),
-                        AttributeModifierSlot.MAINHAND
-                )
-                .add(
-                        EntityAttributes.ENTITY_INTERACTION_RANGE,
-                        new EntityAttributeModifier(Identifier.ofVanilla("entity_interaction_range"), 0.75, EntityAttributeModifier.Operation.ADD_VALUE),
-                        AttributeModifierSlot.MAINHAND
-                )
-                .add(
-                        EntityAttributes.BLOCK_INTERACTION_RANGE,
-                        new EntityAttributeModifier(Identifier.ofVanilla("entity_interaction_range"), 1.0, EntityAttributeModifier.Operation.ADD_VALUE),
-                        AttributeModifierSlot.MAINHAND
-                )
-
-                .build();
+    public static Skin getSkin(ItemStack itemStack) {
+        String skin = itemStack.getOrDefault(DataComponents.CUSTOM_MODEL_DATA, DEFAULT_MODEL_DATA).getString(0);
+        return Skin.skinFromString(skin);
     }
 
-    public static ToolComponent createToolComponent() {
-        RegistryEntryLookup<Block> registryEntryLookup = Registries.createEntryLookup(Registries.BLOCK);
-        return new ToolComponent(List.of(
-                ToolComponent.Rule.ofAlwaysDropping(RegistryEntryList.of(Blocks.COBWEB.getRegistryEntry()), 15.0F),
-                ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.SWORD_INSTANTLY_MINES), Float.MAX_VALUE),
-                ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.SWORD_EFFICIENT), 1.5F)
+    public static void setSkin(ItemStack stack, Skin skin) {
+        stack.set(DataComponents.CUSTOM_MODEL_DATA,new CustomModelData(List.of(),List.of(),List.of(skin.getSkinName()),List.of()));
+    }
+
+    public static ItemAttributeModifiers createAttributeModifiers() {
+        return ItemAttributeModifiers.builder()
+                .add(
+                        Attributes.ATTACK_DAMAGE,
+                        new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, 7.0, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND
+                )
+                .add(
+                        Attributes.ATTACK_SPEED,
+                        new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, -2.7F, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND
+                )
+                .add(
+                        Attributes.ENTITY_INTERACTION_RANGE,
+                        new AttributeModifier(Daggerlance.id("entity_interaction_range"), 0.75, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND
+                )
+                .add(
+                        Attributes.BLOCK_INTERACTION_RANGE,
+                        new AttributeModifier(Daggerlance.id("entity_interaction_range"), 1.0, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND
+                ).build();
+    }
+
+    public static Tool createToolComponent() {
+        HolderGetter<Block> holderGetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+        return new Tool(List.of(
+                Tool.Rule.minesAndDrops(HolderSet.direct(Blocks.COBWEB.builtInRegistryHolder()), 15.0F),
+                Tool.Rule.overrideSpeed(holderGetter.getOrThrow(BlockTags.SWORD_INSTANTLY_MINES), Float.MAX_VALUE),
+                Tool.Rule.overrideSpeed(holderGetter.getOrThrow(BlockTags.SWORD_EFFICIENT), 1.5F)
         ), 1.0F, 2, true);
     }
 
+    @Override
+    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity livingEntity, InteractionHand interactionHand) {
+        if (hasRune(IMPACT_RUNE_ID,stack) && !player.getCooldowns().isOnCooldown(stack)) {
+            Vec3 playerDelta = player.getDeltaMovement();
+            Vec3 vel = player.getViewVector(1.0f).normalize().reverse().multiply(playerDelta.length(),playerDelta.length(),playerDelta.length()).multiply(3,2.5,3);
+
+            player.getCooldowns().addCooldown(stack,20 * 5);
+            player.playSound(SoundEvents.ANVIL_PLACE,1,0.08f);
+
+            stack.set(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, 20));
+
+            player.push(vel.x,vel.y,vel.z);
+            player.needsSync = true;
+            livingEntity.push(player.position().subtract(livingEntity.position()).multiply(-0.05,-0.05,-0.05));
+            return InteractionResult.SUCCESS;
+        } else {
+            return InteractionResult.FAIL;
+        }
+    }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        BlockState state = context.getWorld().getBlockState(context.getBlockPos());
-        String skin = context.getStack().getOrDefault(DataComponentTypes.CUSTOM_MODEL_DATA , new CustomModelDataComponent(List.of(), List.of(), List.of(DaggerlanceItem.Skin.DEFAULT.getSkinName()), List.of())).getString(0);
+    public Optional<TooltipComponent> getTooltipImage(ItemStack itemStack) {
+        return Optional.of(new DaggerlanceRuneTooltipComponent(itemStack));
+    }
 
-        if (state.isOf(Blocks.ANVIL) || state.isOf(Blocks.CHIPPED_ANVIL) || state.isOf(Blocks.DAMAGED_ANVIL) || state.isOf(Blocks.SMITHING_TABLE)) {
-            if (!context.getWorld().isClient) {
-                context.getStack().set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(List.of(), List.of(), List.of(Skin.getNextSkin(Skin.skinFromString(skin)).getSkinName()), List.of()));
-                context.getWorld().playSound(context.getPlayer(), context.getBlockPos(), SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS);
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        ItemStack stack = context.getItemInHand();
+        BlockPos pos = context.getClickedPos();
+        BlockState state = level.getBlockState(pos);
 
-                return ActionResult.SUCCESS;
+        if (state.is(Blocks.ANVIL) || state.is(Blocks.CHIPPED_ANVIL) || state.is(Blocks.DAMAGED_ANVIL) || state.is(Blocks.SMITHING_TABLE)) {
+            if (!level.isClientSide()) {
+                setSkin(stack,Skin.getNextSkin(getSkin(stack)));
+                level.playSound(context.getPlayer(), pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS);
+
+                return InteractionResult.SUCCESS;
             }
-            //context.getWorld().addParticleClient(new DaggerlanceSweepParticleEffect(Skin.getNextSkin(Skin.skinFromString(skin)).color), 1.0D , 1.0d , 1.0d , 0.1d , 0.1d , 0.1d);
-            context.getWorld().playSound(context.getPlayer(), context.getBlockPos(), SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS);
+            level.playSound(context.getPlayer(), pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS);
         }
-        return super.useOnBlock(context);
+        return super.useOn(context);
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, ServerLevel serverLevel, Entity entity, @org.jspecify.annotations.Nullable EquipmentSlot equipmentSlot) {
+        super.inventoryTick(stack, serverLevel, entity, equipmentSlot);
+        if (entity instanceof Player player) {
+            if (player.swinging && stack.getSwingAnimation().type().equals(SwingAnimationType.STAB)) {
+                stack.remove(DataComponents.SWING_ANIMATION);
+            }
+        }
     }
 
     public enum Skin {
-        DEFAULT(-1, null, "tooltip.daggerlance.lore.default"),
-        GOLD(16100912, "tooltip.daggerlance.name.gold", null),
-        MOON(13883641, "tooltip.daggerlance.name.moon", null),
-        ROSE(16732311, "tooltip.daggerlance.name.rose", null),
-        JADE(8056170, "tooltip.daggerlance.name.jade", null),
-        VANA(10510945, "tooltip.daggerlance.name.vana", "tooltip.daggerlance.lore.vana");
+        DEFAULT(-1, null, "tooltip.daggerlance.lore.default", DaggerlanceParticles.DAGGERLANCE_SWEEP_PARTICLE_TYPE),
+        GOLD(16100912, "tooltip.daggerlance.name.gold", null, DaggerlanceParticles.ROYALTY_SWEEP_PARTICLE_TYPE),
+        MOON(13883641, "tooltip.daggerlance.name.moon", null, DaggerlanceParticles.MOON_SWEEP_PARTICLE_TYPE),
+        ROSE(16732311, "tooltip.daggerlance.name.rose", null, DaggerlanceParticles.ROSE_SWEEP_PARTICLE_TYPE),
+        JADE(8056170, "tooltip.daggerlance.name.jade", null, DaggerlanceParticles.JADE_SWEEP_PARTICLE_TYPE),
+        VANA(10510945, "tooltip.daggerlance.name.vana", "tooltip.daggerlance.lore.vana", DaggerlanceParticles.VANA_SWEEP_PARTICLE_TYPE);
 
         public final int color;
         public final @Nullable String tooltipName;
         public final @Nullable String lore;
+        public final SimpleParticleType sweepParticle;
 
-        Skin(int color, @Nullable String tooltipName, @Nullable String lore) {
+        Skin(int color, @Nullable String tooltipName, @Nullable String lore, SimpleParticleType sweepParticle) {
             this.color = color;
             this.lore = lore;
             this.tooltipName = tooltipName;
+            this.sweepParticle = sweepParticle;
+        }
+
+        public SimpleParticleType getSweepParticle() {
+            return this.sweepParticle;
         }
 
         public String getSkinName() {
@@ -129,4 +194,27 @@ public class DaggerlanceItem extends Item {
         }
 
     }
+                    /*                stack.set(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, 20));
+                player.swing(interactionHand);
+
+                stack.set(DataComponents.ATTRIBUTE_MODIFIERS,createAttributeModifiers().withModifierAdded(Attributes.ATTACK_DAMAGE,
+                        new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, 4.0, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND));*/
+
+    /*            if (itemStack.has(DataComponents.SWING_ANIMATION) && living instanceof ServerPlayer player) {
+                if (itemStack.getSwingAnimation().type().equals(SwingAnimationType.STAB)) {
+                    player.setDeltaMovement(player.getDeltaMovement().multiply(1,0,1));
+                    player.push(player.position().subtract(target.position()).normalize().multiply(0.4,0.8,0.4));
+                    player.needsSync = true;
+                    player.connection.send(new ClientboundSetEntityMotionPacket(player));
+                }
+            }*/
+
+    /*        if (entity instanceof Player player && stack.has(DataComponents.SWING_ANIMATION)) {
+            if (!player.swinging && stack.get(DataComponents.SWING_ANIMATION).type() == SwingAnimationType.STAB) {
+                stack.remove(DataComponents.SWING_ANIMATION);
+                player.getCooldowns().addCooldown(stack,20 * 5);
+                stack.set(DataComponents.ATTRIBUTE_MODIFIERS,createAttributeModifiers());
+            }
+        }*/
 }

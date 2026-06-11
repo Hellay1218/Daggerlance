@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "building",
   "key": {
     "#": "daggerlance:lancium_bricks"
   },
@@ -9,7 +9,7 @@
     "###"
   ],
   "result": {
-    "count": 1,
+    "count": 6,
     "id": "daggerlance:lancium_brick_wall"
   }
 }

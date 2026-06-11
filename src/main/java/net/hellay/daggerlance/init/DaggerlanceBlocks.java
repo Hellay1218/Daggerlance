@@ -1,41 +1,55 @@
 package net.hellay.daggerlance.init;
 
 import net.hellay.daggerlance.Daggerlance;
-import net.minecraft.block.*;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Function;
 
-import static net.hellay.daggerlance.Daggerlance.MOD_ID;
-
 public class DaggerlanceBlocks {
 
-    public static final Block LANCIUM_BLOCK = registerBlock("lancium_block" , Block::new, AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK));
-    public static final Block LANCIUM_BRICKS = registerBlock("lancium_bricks" , Block::new, AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK));
-    public static final Block LANCIUM_BRICK_STAIRS = registerBlock("lancium_brick_stairs" , settings -> new StairsBlock(LANCIUM_BRICKS.getDefaultState(), settings), AbstractBlock.Settings.copy(LANCIUM_BRICKS));
-    public static final Block LANCIUM_BRICK_SLAB = registerBlock("lancium_brick_slab" , SlabBlock::new, AbstractBlock.Settings.copy(LANCIUM_BRICKS));
-    public static final Block LANCIUM_BRICK_WALL = registerBlock("lancium_brick_wall" , WallBlock::new, AbstractBlock.Settings.copy(LANCIUM_BRICKS).solid());
+    public static final Block LANCIUM_BLOCK = register("lancium_block",Block::new,BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK),true,9);
 
-    public static Block registerBlock(String id, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-        Block block = (Block) factory.apply(settings.registryKey(blockKey(id)));
-        registerBlockItem(id , block);
-        return Registry.register(Registries.BLOCK, blockKey(id), block);
-    }
-    private static void registerBlockItem(String name , Block block){
-        Registry.register(Registries.ITEM , RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, name)) , new BlockItem(block , new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, name)))));
+    public static final Block LANCIUM_BRICKS = register("lancium_bricks", Block::new,BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).sound(SoundType.NETHERITE_BLOCK),true,4);
+
+    public static final Block LANCIUM_BRICK_STAIRS = register("lancium_brick_stairs", properties -> new StairBlock(LANCIUM_BRICKS.defaultBlockState(), properties),BlockBehaviour.Properties.ofFullCopy(LANCIUM_BRICKS),true,6);
+
+    public static final Block LANCIUM_BRICK_SLAB = register("lancium_brick_slab", SlabBlock::new,BlockBehaviour.Properties.ofFullCopy(LANCIUM_BRICKS),true,3);
+
+    public static final Block LANCIUM_BRICK_WALL = register("lancium_brick_wall", WallBlock::new,BlockBehaviour.Properties.ofFullCopy(LANCIUM_BRICKS).forceSolidOn(),true,6);
+
+    public static final Block LANCIUM_PILLAR = register("lancium_pillar",RotatedPillarBlock::new,BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).sound(SoundType.NETHERITE_BLOCK),true,6);
+
+    /* - registry/helper functions - */
+
+    private static Block register(String name, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings, boolean shouldRegisterItem, int lanciumDropCount) {
+        ResourceKey<Block> blockKey = keyOfBlock(name);
+        Block block = blockFactory.apply(settings.setId(blockKey));
+        if (shouldRegisterItem) {
+            ResourceKey<Item> itemKey = keyOfItem(name);
+
+            BlockItem blockItem = new BlockItem(block, new Item.Properties().setId(itemKey).component(DaggerlanceDataComponents.LANCIUM_BURN_DROP,lanciumDropCount).useBlockDescriptionPrefix());
+            Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
+        }
+
+        return Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
     }
 
-    public static RegistryKey<Block> blockKey(String id){
-        return RegistryKey.of(RegistryKeys.BLOCK , Identifier.of(MOD_ID , id));
+    private static ResourceKey<Block> keyOfBlock(String name) {
+        return ResourceKey.create(Registries.BLOCK, Daggerlance.id(name));
     }
 
-    public static void registerModBlocks(){
-        Daggerlance.LOGGER.info("Registering Blocks for " + Daggerlance.MOD_NAME);
+    private static ResourceKey<Item> keyOfItem(String name) {
+        return ResourceKey.create(Registries.ITEM, Daggerlance.id(name));
+    }
+
+    public static void init() {
+
     }
 }

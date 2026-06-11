@@ -13,13 +13,13 @@ public class DaggerlanceClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.DAGGERLANCE_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.ROYALTY_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.MOON_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.ROSE_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.ROSE_LEAF_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.JADE_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.VANA_SWEEP_PARTICLE_TYPE , DaggerlanceSweepParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.DAGGERLANCE_SWEEP_PARTICLE_TYPE, DaggerlanceSweepParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.ROYALTY_SWEEP_PARTICLE_TYPE, DaggerlanceSweepParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.MOON_SWEEP_PARTICLE_TYPE, DaggerlanceSweepParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.ROSE_SWEEP_PARTICLE_TYPE, DaggerlanceSweepParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.ROSE_LEAF_SWEEP_PARTICLE_TYPE, DaggerlanceSweepParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.JADE_SWEEP_PARTICLE_TYPE, DaggerlanceSweepParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(DaggerlanceParticles.VANA_SWEEP_PARTICLE_TYPE, DaggerlanceSweepParticle.Factory::new);
         DaggerlanceToolTipEvent.init();
     }
 }

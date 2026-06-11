@@ -1,31 +1,28 @@
 package net.hellay.daggerlance.init;
 
-import net.minecraft.item.equipment.trim.ArmorTrimAssets;
-import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Identifier;
+import net.hellay.daggerlance.Daggerlance;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
-
-import static net.hellay.daggerlance.Daggerlance.MOD_ID;
+import net.minecraft.world.item.equipment.trim.MaterialAssetGroup;
+import net.minecraft.world.item.equipment.trim.TrimMaterial;
 
 public class DaggerlanceTrimMaterials {
 
-    public static final RegistryKey<ArmorTrimMaterial> LANCIUM = RegistryKey.of(RegistryKeys.TRIM_MATERIAL , Identifier.of(MOD_ID , "lancium"));
-    private static void register(Registerable<ArmorTrimMaterial> registerable, RegistryKey<ArmorTrimMaterial> armorTrimKey, Style style) {
-        ArmorTrimMaterial trimMaterial = new ArmorTrimMaterial(
-        ArmorTrimAssets.of(armorTrimKey.getValue().getPath()),
-        Text.translatable(Util.createTranslationKey("trim_material", armorTrimKey.getValue())).fillStyle(style));
+    public static final ResourceKey<TrimMaterial> LANCIUM = ResourceKey.create(Registries.TRIM_MATERIAL, Daggerlance.id("lancium"));
+
+    private static void register(BootstrapContext<TrimMaterial> registerable, ResourceKey<TrimMaterial> armorTrimKey, Style style) {
+        TrimMaterial trimMaterial = new TrimMaterial(
+                MaterialAssetGroup.create(armorTrimKey.identifier().getPath()),
+                Component.translatable(Util.makeDescriptionId("trim_material", armorTrimKey.identifier())).withStyle(style));
         registerable.register(armorTrimKey, trimMaterial);
     }
 
-    public static void bootstrap(Registerable<ArmorTrimMaterial> registerable ){
-        register(registerable, LANCIUM, Style.EMPTY.withColor(TextColor.parse("#d59ae9").getOrThrow()));
+    public static void bootstrap(BootstrapContext<TrimMaterial> registerable) {
+        register(registerable, LANCIUM, Style.EMPTY.withColor(TextColor.parseColor("#d59ae9").getOrThrow()));
     }
-
-
 }

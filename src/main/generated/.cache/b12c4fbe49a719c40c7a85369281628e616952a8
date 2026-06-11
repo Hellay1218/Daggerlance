@@ -1,4 +1,4 @@
-// 1.21.5	-999999999-01-01T00:00:00	Daggerlance/Model Definitions
+// 1.21.11	-999999999-01-01T00:00:00	Daggerlance/Model Definitions
 afac4733a28099a51f70ada829c79d14c1a29cb0 assets/daggerlance/blockstates/lancium_block.json
 58537343918a2f7f725e95b3785380551912cd73 assets/daggerlance/blockstates/lancium_brick_slab.json
 238985c98a05387168e3c9579324a66038c831a7 assets/daggerlance/blockstates/lancium_brick_stairs.json
@@ -9,7 +9,6 @@ ce2e8f1f783c24b682332eaf0c24307a89de39e1 assets/daggerlance/items/lancium_brick_
 aa2a55da7247531628b3cfa7e833ecf2a2e29e3b assets/daggerlance/items/lancium_brick_stairs.json
 43e699277539cf6180141164251682b0cb71de90 assets/daggerlance/items/lancium_brick_wall.json
 7b39301939bcd7b458901564c51bd5fc422fe67d assets/daggerlance/items/lancium_bricks.json
-0861ca09d7d29c08bda0dc6dbf75fea689b05dc7 assets/daggerlance/items/lancium_ingot.json
 d61d599b2ba568e5da05c80b5f87e5652b34c24b assets/daggerlance/models/block/lancium_block.json
 becc2b1cdd35e24dd0a0fc06917353645b5def73 assets/daggerlance/models/block/lancium_brick_slab.json
 6f4513e01145152251fa0b1fd1d37c6d162c6f5b assets/daggerlance/models/block/lancium_brick_slab_top.json

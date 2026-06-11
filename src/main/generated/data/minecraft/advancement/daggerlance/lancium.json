@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:daggerlance/root",
+  "criteria": {
+    "daggerlance": {
+      "conditions": {
+        "items": [
+          {
+            "items": "daggerlance:lancium_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "daggerlance:block/lancium_bricks",
+    "description": {
+      "translate": "advancements.task.daggerlance.lancium"
+    },
+    "icon": {
+      "count": 1,
+      "id": "daggerlance:lancium_ingot"
+    },
+    "title": "Lancium"
+  },
+  "requirements": [
+    [
+      "daggerlance"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

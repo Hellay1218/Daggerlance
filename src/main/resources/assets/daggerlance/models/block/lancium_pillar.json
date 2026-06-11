@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "daggerlance:block/lancium_pillar_top",
+    "side": "daggerlance:block/lancium_pillar_side"
+  }
+}

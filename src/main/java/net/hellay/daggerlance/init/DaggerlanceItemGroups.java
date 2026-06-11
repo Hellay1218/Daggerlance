@@ -4,59 +4,65 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.item.DaggerlanceItem;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.CustomModelDataComponent;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomModelData;
 
 import java.util.List;
 
 public class DaggerlanceItemGroups {
 
     static {
-        ItemGroup itemGroup = FabricItemGroup.builder()
-                .displayName(Text.translatable("itemgroup.daggerlance.daggerlance_group"))
+        CreativeModeTab tab = FabricItemGroup.builder()
+                .title(Component.translatable("itemgroup.daggerlance.daggerlance_group"))
                 .icon(() -> new ItemStack(DaggerlanceItems.LANCIUM_INGOT))
-                .entries((displayContext, entries) -> {
-                    for(DaggerlanceItem.Skin skin : DaggerlanceItem.Skin.values()){
-                        ItemStack stack = DaggerlanceItems.DAGGERLANCE.getDefaultStack();
-                        stack.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(List.of(), List.of(), List.of(skin.getSkinName()), List.of()));
-                        entries.add(stack);
+                .displayItems((displayContext, entries) -> {
+                    for (DaggerlanceItem.Skin skin : DaggerlanceItem.Skin.values()) {
+                        ItemStack stack = DaggerlanceItems.DAGGERLANCE.getDefaultInstance();
+                        stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(skin.getSkinName()), List.of()));
+                        entries.accept(stack);
                     }
-                    entries.add(DaggerlanceBlocks.LANCIUM_BLOCK);
-                    entries.add(DaggerlanceBlocks.LANCIUM_BRICKS);
-                    entries.add(DaggerlanceBlocks.LANCIUM_BRICK_STAIRS);
-                    entries.add(DaggerlanceBlocks.LANCIUM_BRICK_SLAB);
-                    entries.add(DaggerlanceBlocks.LANCIUM_BRICK_WALL);
-                    entries.add(DaggerlanceItems.LANCIUM_INGOT);
-
-
+                    entries.accept(DaggerlanceBlocks.LANCIUM_BLOCK);
+                    entries.accept(DaggerlanceBlocks.LANCIUM_BRICKS);
+                    entries.accept(DaggerlanceBlocks.LANCIUM_BRICK_STAIRS);
+                    entries.accept(DaggerlanceBlocks.LANCIUM_BRICK_SLAB);
+                    entries.accept(DaggerlanceBlocks.LANCIUM_BRICK_WALL);
+                    entries.accept(DaggerlanceBlocks.LANCIUM_PILLAR);
+                    entries.accept(DaggerlanceItems.LANCIUM_INGOT);
+                    entries.accept(DaggerlanceItems.BLANK_RUNE);
+                    entries.accept(DaggerlanceItems.IMPACT_RUNE);
                 })
                 .build();
 
         Registry.register(
-                Registries.ITEM_GROUP,
-                Identifier.of(Daggerlance.MOD_ID, "daggerlance_group"),
-                itemGroup
+                BuiltInRegistries.CREATIVE_MODE_TAB,
+                Daggerlance.id("daggerlance_group"),
+                tab
         );
     }
 
-    // called in the Daggerlance (Main) Class so the ItemGroups get registered (idk why im explaining these)
-    public static void registerModItemGroups() {
-        Daggerlance.LOGGER.info("Registering item group(s) for" + Daggerlance.MOD_NAME + "...");
-
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
-            entries.addAfter(Items.NETHERITE_INGOT , DaggerlanceItems.LANCIUM_INGOT);
+    public static void init() {
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(entries -> {
+            entries.addAfter(Items.NETHERITE_INGOT, DaggerlanceItems.LANCIUM_INGOT);
+            entries.accept(DaggerlanceItems.BLANK_RUNE);
+            entries.accept(DaggerlanceItems.IMPACT_RUNE);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
-            entries.addAfter(Items.NETHERITE_SWORD , DaggerlanceItems.DAGGERLANCE);
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> {
+            entries.addAfter(Items.NETHERITE_SWORD, DaggerlanceItems.DAGGERLANCE);
+        });
+
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(fabricItemGroupEntries -> {
+            fabricItemGroupEntries.addAfter(Items.NETHERITE_BLOCK,DaggerlanceBlocks.LANCIUM_BLOCK);
+        });
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(fabricItemGroupEntries -> {
+            fabricItemGroupEntries.addBefore(Items.AMETHYST_BLOCK,DaggerlanceBlocks.LANCIUM_PILLAR,DaggerlanceBlocks.LANCIUM_BRICKS, DaggerlanceBlocks.LANCIUM_BRICK_STAIRS,DaggerlanceBlocks.LANCIUM_BRICK_WALL,DaggerlanceBlocks.LANCIUM_BRICK_SLAB);
         });
     }
 
