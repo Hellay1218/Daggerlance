@@ -29,7 +29,7 @@
 
   "tooltip.daggerlance.lore.default": "Shift right click on an anvil or\nsmithing table to change skin",
   "tooltip.daggerlance.lore.vana": "A good example of barrens craftsmanship. Vana is an ore used by barrens \nthat is found in their dimension. After many years they have mastered using vana\nto the point that they can make advance items that nobody can replicate.\nThis is purely designed to permanently harm your opponent, a dead soldier is \nthe proof of how strong their will is, an injured one is the proof of how far\nbarrens will to go to make you suffer before death",
-  "tooltip.daggerlance.lore.hidden":"Press [Shift] to show lore",
+  "tooltip.daggerlance.lore.hidden":"Press [Shift] to show more",
   "advancements.task.daggerlance.rune": "create a lancium rune by fusing two items under heat",
   "advancements.task.daggerlance.backstabbed": "get your first daggerlance",
   "advancements.task.daggerlance.lancium": "Get your first lancium ingot by burning a daggerlance",
