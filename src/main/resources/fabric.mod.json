@@ -13,7 +13,7 @@
 		"homepage": "https://modrinth.com/mod/daggerlance",
 		"sources": "https://github.com/Hellay1218/Daggerlance"
 	},
-	"license": "ARR",
+	"license": "All Rights Reserved",
 	"icon": "assets/daggerlance/icon.png",
 	"environment": "*",
 	"entrypoints": {

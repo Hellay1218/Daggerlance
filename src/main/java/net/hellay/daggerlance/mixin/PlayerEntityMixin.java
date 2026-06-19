@@ -49,7 +49,7 @@ public abstract class PlayerEntityMixin {
             ItemStack stack = a ? player.getItemInHand(InteractionHand.MAIN_HAND) : b ? player.getItemInHand(InteractionHand.OFF_HAND) : ItemStack.EMPTY;
             if (!stack.isEmpty()) {
                 daggerlance$parryTimer = 15;
-                player.playSound(SoundEvents.TRIDENT_THUNDER.value(),1,1);
+                serverLevel.playSeededSound(null,player,SoundEvents.TRIDENT_THUNDER,SoundSource.PLAYERS,4,1,serverLevel.getSeed());
                 player.getCooldowns().addCooldown(stack,20 * 8);
                 player.stopUsingItem();
             }
