@@ -93,7 +93,7 @@ public class DaggerlanceAchivementProvider extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .addCriterion("rune_fusion", InventoryChangeTrigger.TriggerInstance.hasItems(DaggerlanceItems.IMPACT_RUNE))
+                .addCriterion("rune_fusion", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(itemHolderLookup,Daggerlance.RUNE)))
                 .save(consumer, "daggerlance/fusion");
     }
 }

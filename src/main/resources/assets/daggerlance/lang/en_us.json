@@ -4,7 +4,6 @@
   "item.daggerlance.daggerlance": "Daggerlance",
   "item.daggerlance.lancium_ingot": "Lancium Ingot",
   "item.daggerlance.blank_rune": "Rune",
-  "item.daggerlance.impact_rune": "Rune",
   "block.daggerlance.lancium_block": "Block of Lancium",
   "block.daggerlance.lancium_pillar": "Lancium Pillar",
   "block.daggerlance.lancium_bricks": "Lancium Bricks",
@@ -26,6 +25,8 @@
   "tooltip.daggerlance.rune.blank.explain": "a Blank Rune, does nothing",
   "tooltip.daggerlance.rune.impact": "Impact",
   "tooltip.daggerlance.rune.impact.explain": "Interact with an entity using the daggerlance to get knocked away from them",
+  "tooltip.daggerlance.rune.feedback": "Feedback",
+  "tooltip.daggerlance.rune.feedback.explain": "Block an attack with the daggerlance to release a barrage of attacks",
 
   "tooltip.daggerlance.lore.default": "Shift right click on an anvil or\nsmithing table to change skin",
   "tooltip.daggerlance.lore.vana": "A good example of barrens craftsmanship. Vana is an ore used by barrens \nthat is found in their dimension. After many years they have mastered using vana\nto the point that they can make advance items that nobody can replicate.\nThis is purely designed to permanently harm your opponent, a dead soldier is \nthe proof of how strong their will is, an injured one is the proof of how far\nbarrens will to go to make you suffer before death",

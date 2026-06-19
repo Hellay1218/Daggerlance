@@ -23,6 +23,8 @@ public class Daggerlance implements ModInitializer {
 
     public static final TagKey<Item> DAGGERLANCE_DROPPING_WEAPON = TagKey.create(Registries.ITEM, id("drops_daggerlance"));
     public static final TagKey<Item> LANCIUM_MATERIAL = TagKey.create(Registries.ITEM, id("lancium_material"));
+    public static final TagKey<Item> RUNE = TagKey.create(Registries.ITEM, id("rune"));
+
     public static final GameRule<Boolean> SHOULD_REQUIRE_SPECIFIC_WEAPON_TO_DROP_DAGGERLANCE = GameRuleBuilder.forBoolean(true).category(GameRuleCategory.DROPS).buildAndRegister(id("require_weapon_to_drop_daggerlance"));
 
 

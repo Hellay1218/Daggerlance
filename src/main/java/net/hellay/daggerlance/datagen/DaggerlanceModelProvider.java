@@ -27,5 +27,8 @@ public class DaggerlanceModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerators itemModelGenerators) {
         itemModelGenerators.createFlatItemModel(DaggerlanceItems.LANCIUM_INGOT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(DaggerlanceItems.BLANK_RUNE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerators.generateFlatItem(DaggerlanceItems.IMPACT_RUNE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerators.generateFlatItem(DaggerlanceItems.FEEDBACK_RUNE, ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 }

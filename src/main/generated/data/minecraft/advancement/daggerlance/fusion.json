@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "daggerlance:impact_rune"
+            "items": "#daggerlance:rune"
           }
         ]
       },

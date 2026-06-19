@@ -37,6 +37,7 @@ public class DaggerlanceItems {
     // runes
 
     public static final Item IMPACT_RUNE = register("impact_rune", properties -> new RuneItem(properties,DaggerlanceItem.IMPACT_RUNE_ID),new Item.Properties());
+    public static final Item FEEDBACK_RUNE = register("feedback_rune", properties -> new RuneItem(properties,DaggerlanceItem.FEEDBACK_RUNE_ID),new Item.Properties());
     public static final Item BLANK_RUNE = register("blank_rune", properties -> new RuneItem(properties,"blank"),new Item.Properties());
 
     public static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {

@@ -3,6 +3,7 @@ package net.hellay.daggerlance.item;
 import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.init.DaggerlanceParticles;
 import net.hellay.daggerlance.item.tooltip.DaggerlanceRuneTooltipComponent;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.SwingAnimationType;
 import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
@@ -44,6 +46,8 @@ public class DaggerlanceItem extends SingleSlotAbilityItem {
 
     public final static CustomModelData DEFAULT_MODEL_DATA = new CustomModelData(List.of(), List.of(), List.of(DaggerlanceItem.Skin.DEFAULT.getSkinName()), List.of());
     public final static String IMPACT_RUNE_ID = "impact";
+    public final static String FEEDBACK_RUNE_ID = "feedback";
+
 
     public DaggerlanceItem(Properties properties) {
         super(properties);
@@ -56,6 +60,11 @@ public class DaggerlanceItem extends SingleSlotAbilityItem {
 
     public static void setSkin(ItemStack stack, Skin skin) {
         stack.set(DataComponents.CUSTOM_MODEL_DATA,new CustomModelData(List.of(),List.of(),List.of(skin.getSkinName()),List.of()));
+    }
+
+    @Override
+    public boolean mineBlock(ItemStack itemStack, Level level, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {
+        return livingEntity instanceof Player player && !player.isCreative();
     }
 
     public static ItemAttributeModifiers createAttributeModifiers() {
@@ -133,6 +142,28 @@ public class DaggerlanceItem extends SingleSlotAbilityItem {
             level.playSound(context.getPlayer(), pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS);
         }
         return super.useOn(context);
+    }
+
+    @Override
+    public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
+        ItemStack stack = player.getItemInHand(interactionHand);
+        if (getRune(stack) != "empty" && getRune(stack) != "blank") {
+            if (getRune(stack).equals(FEEDBACK_RUNE_ID)) {
+                player.startUsingItem(interactionHand);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.FAIL;
+    }
+
+    @Override
+    public int getUseDuration(ItemStack itemStack, LivingEntity livingEntity) {
+        return 200;
+    }
+
+    @Override
+    public ItemUseAnimation getUseAnimation(ItemStack itemStack) {
+        return ItemUseAnimation.BOW;
     }
 
     @Override

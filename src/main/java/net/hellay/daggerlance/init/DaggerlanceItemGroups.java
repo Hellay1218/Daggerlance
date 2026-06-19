@@ -37,6 +37,7 @@ public class DaggerlanceItemGroups {
                     entries.accept(DaggerlanceItems.LANCIUM_INGOT);
                     entries.accept(DaggerlanceItems.BLANK_RUNE);
                     entries.accept(DaggerlanceItems.IMPACT_RUNE);
+                    entries.accept(DaggerlanceItems.FEEDBACK_RUNE);
                 })
                 .build();
 
@@ -52,6 +53,7 @@ public class DaggerlanceItemGroups {
             entries.addAfter(Items.NETHERITE_INGOT, DaggerlanceItems.LANCIUM_INGOT);
             entries.accept(DaggerlanceItems.BLANK_RUNE);
             entries.accept(DaggerlanceItems.IMPACT_RUNE);
+            entries.accept(DaggerlanceItems.FEEDBACK_RUNE);
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> {

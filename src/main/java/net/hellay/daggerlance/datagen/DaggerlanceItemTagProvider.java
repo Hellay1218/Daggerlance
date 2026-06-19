@@ -23,7 +23,7 @@ public class DaggerlanceItemTagProvider extends FabricTagProvider.ItemTagProvide
                 .add(DaggerlanceItems.DAGGERLANCE);
         valueLookupBuilder(ItemTags.TRIM_MATERIALS)
                 .add(DaggerlanceItems.LANCIUM_INGOT);
-        valueLookupBuilder(Daggerlance.LANCIUM_MATERIAL).add(DaggerlanceItems.DAGGERLANCE, DaggerlanceItems.LANCIUM_INGOT,DaggerlanceItems.BLANK_RUNE,DaggerlanceItems.IMPACT_RUNE, DaggerlanceBlocks.LANCIUM_BLOCK.asItem(),DaggerlanceBlocks.LANCIUM_BRICK_STAIRS.asItem(),DaggerlanceBlocks.LANCIUM_BRICKS.asItem(), DaggerlanceBlocks.LANCIUM_BRICK_WALL.asItem(),DaggerlanceBlocks.LANCIUM_BRICK_SLAB.asItem(),DaggerlanceBlocks.LANCIUM_PILLAR.asItem());
-
+        valueLookupBuilder(Daggerlance.LANCIUM_MATERIAL).add(DaggerlanceItems.DAGGERLANCE, DaggerlanceItems.LANCIUM_INGOT,DaggerlanceItems.BLANK_RUNE,DaggerlanceItems.IMPACT_RUNE, DaggerlanceItems.FEEDBACK_RUNE, DaggerlanceBlocks.LANCIUM_BLOCK.asItem(),DaggerlanceBlocks.LANCIUM_BRICK_STAIRS.asItem(),DaggerlanceBlocks.LANCIUM_BRICKS.asItem(), DaggerlanceBlocks.LANCIUM_BRICK_WALL.asItem(),DaggerlanceBlocks.LANCIUM_BRICK_SLAB.asItem(),DaggerlanceBlocks.LANCIUM_PILLAR.asItem());
+        valueLookupBuilder(Daggerlance.RUNE).add(DaggerlanceItems.IMPACT_RUNE).add(DaggerlanceItems.FEEDBACK_RUNE);
     }
 }
