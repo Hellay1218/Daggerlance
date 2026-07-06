@@ -157,23 +157,24 @@ public class DaggerlanceItem extends SingleSlotAbilityItem {
     }
 
     @Override
+    public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int i) {
+        super.onUseTick(level, livingEntity, itemStack, i);
+        if (livingEntity.getUseItemRemainingTicks() <= 0) {
+            if (livingEntity instanceof Player player) {
+                player.getCooldowns().addCooldown(itemStack,20 * 8);
+                livingEntity.stopUsingItem();
+            }
+        }
+    }
+
+    @Override
     public int getUseDuration(ItemStack itemStack, LivingEntity livingEntity) {
-        return 200;
+        return 20;
     }
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack itemStack) {
-        return ItemUseAnimation.BOW;
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, ServerLevel serverLevel, Entity entity, @org.jspecify.annotations.Nullable EquipmentSlot equipmentSlot) {
-        super.inventoryTick(stack, serverLevel, entity, equipmentSlot);
-        if (entity instanceof Player player) {
-            if (player.swinging && stack.getSwingAnimation().type().equals(SwingAnimationType.STAB)) {
-                stack.remove(DataComponents.SWING_ANIMATION);
-            }
-        }
+        return ItemUseAnimation.BLOCK;
     }
 
     public enum Skin {
@@ -225,27 +226,5 @@ public class DaggerlanceItem extends SingleSlotAbilityItem {
         }
 
     }
-                    /*                stack.set(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, 20));
-                player.swing(interactionHand);
 
-                stack.set(DataComponents.ATTRIBUTE_MODIFIERS,createAttributeModifiers().withModifierAdded(Attributes.ATTACK_DAMAGE,
-                        new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, 4.0, AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND));*/
-
-    /*            if (itemStack.has(DataComponents.SWING_ANIMATION) && living instanceof ServerPlayer player) {
-                if (itemStack.getSwingAnimation().type().equals(SwingAnimationType.STAB)) {
-                    player.setDeltaMovement(player.getDeltaMovement().multiply(1,0,1));
-                    player.push(player.position().subtract(target.position()).normalize().multiply(0.4,0.8,0.4));
-                    player.needsSync = true;
-                    player.connection.send(new ClientboundSetEntityMotionPacket(player));
-                }
-            }*/
-
-    /*        if (entity instanceof Player player && stack.has(DataComponents.SWING_ANIMATION)) {
-            if (!player.swinging && stack.get(DataComponents.SWING_ANIMATION).type() == SwingAnimationType.STAB) {
-                stack.remove(DataComponents.SWING_ANIMATION);
-                player.getCooldowns().addCooldown(stack,20 * 5);
-                stack.set(DataComponents.ATTRIBUTE_MODIFIERS,createAttributeModifiers());
-            }
-        }*/
 }

@@ -11,6 +11,8 @@
   "block.daggerlance.lancium_brick_slab": "Lancium Brick Slab",
   "block.daggerlance.lancium_brick_wall": "Lancium Brick Wall",
 
+  "death.attack.parry": "%1$s was overwhelmed",
+
   "trim_material.daggerlance.lancium": "Lancium Material",
 
   "itemgroup.daggerlance.daggerlance_group": "Daggerlance",

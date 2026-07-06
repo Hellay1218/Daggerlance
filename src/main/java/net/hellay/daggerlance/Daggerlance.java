@@ -2,8 +2,10 @@ package net.hellay.daggerlance;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.hellay.daggerlance.event.WitherSkeletonDeathEvent;
 import net.hellay.daggerlance.init.*;
+import net.hellay.daggerlance.networking.ParryS2CPayload;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
@@ -36,8 +38,10 @@ public class Daggerlance implements ModInitializer {
         DaggerlanceItemGroups.init();
         DaggerlanceParticles.init();
         DaggerlanceDataComponents.init();
+        DaggerlanceDamageTypes.init();
 
         // events
         WitherSkeletonDeathEvent.init();
+        PayloadTypeRegistry.playS2C().register(ParryS2CPayload.TYPE, ParryS2CPayload.CODEC);
     }
 }
