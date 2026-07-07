@@ -16,7 +16,7 @@ public class DaggerlanceBlocks {
 
     public static final Block LANCIUM_BLOCK = register("lancium_block",Block::new,BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK),true,9);
 
-    public static final Block LANCIUM_BRICKS = register("lancium_bricks", Block::new,BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).sound(SoundType.NETHERITE_BLOCK),true,4);
+    public static final Block LANCIUM_BRICKS = register("lancium_bricks", Block::new,BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK).sound(SoundType.NETHERITE_BLOCK),true,4);
 
     public static final Block LANCIUM_BRICK_STAIRS = register("lancium_brick_stairs", properties -> new StairBlock(LANCIUM_BRICKS.defaultBlockState(), properties),BlockBehaviour.Properties.ofFullCopy(LANCIUM_BRICKS),true,6);
 

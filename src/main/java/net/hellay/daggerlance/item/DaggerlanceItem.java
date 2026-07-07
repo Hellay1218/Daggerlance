@@ -109,8 +109,6 @@ public class DaggerlanceItem extends SingleSlotAbilityItem {
             player.getCooldowns().addCooldown(stack,20 * 5);
             player.playSound(SoundEvents.ANVIL_PLACE,1,0.08f);
 
-            stack.set(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, 20));
-
             player.push(vel.x,vel.y,vel.z);
             player.needsSync = true;
             livingEntity.push(player.position().subtract(livingEntity.position()).multiply(-0.05,-0.05,-0.05));
@@ -157,19 +155,27 @@ public class DaggerlanceItem extends SingleSlotAbilityItem {
     }
 
     @Override
-    public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int i) {
-        super.onUseTick(level, livingEntity, itemStack, i);
-        if (livingEntity.getUseItemRemainingTicks() <= 0) {
-            if (livingEntity instanceof Player player) {
-                player.getCooldowns().addCooldown(itemStack,20 * 8);
-                livingEntity.stopUsingItem();
-            }
-        }
+    public int getUseDuration(ItemStack itemStack, LivingEntity livingEntity) {
+        return 20;
     }
 
     @Override
-    public int getUseDuration(ItemStack itemStack, LivingEntity livingEntity) {
-        return 20;
+    public boolean releaseUsing(ItemStack itemStack, Level level, LivingEntity livingEntity, int i) {
+        if (livingEntity instanceof Player player) {
+            player.getCooldowns().addCooldown(itemStack, 20 * 4);
+        }
+        return super.releaseUsing(itemStack, level, livingEntity, i);
+    }
+
+
+    @Override
+    public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @org.jspecify.annotations.Nullable EquipmentSlot equipmentSlot) {
+        super.inventoryTick(itemStack, serverLevel, entity, equipmentSlot);
+        if (entity instanceof LivingEntity livingEntity) {
+            if (livingEntity.getUseItemRemainingTicks() <= 1 && livingEntity.isUsingItem()) {
+                    itemStack.releaseUsing(serverLevel,livingEntity,0);
+            }
+        }
     }
 
     @Override
