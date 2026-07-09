@@ -12,7 +12,7 @@
   "block.daggerlance.lancium_brick_wall": "Lancium Brick Wall",
 
   "death.attack.parry": "%1$s was overwhelmed",
-
+  "gamerule.daggerlance.require_weapon_to_drop_daggerlance" : "Require specific weapon to drop Daggerlance",
   "trim_material.daggerlance.lancium": "Lancium Material",
 
   "itemgroup.daggerlance.daggerlance_group": "Daggerlance",

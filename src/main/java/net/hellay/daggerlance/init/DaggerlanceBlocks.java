@@ -24,7 +24,7 @@ public class DaggerlanceBlocks {
 
     public static final Block LANCIUM_BRICK_WALL = register("lancium_brick_wall", WallBlock::new,BlockBehaviour.Properties.ofFullCopy(LANCIUM_BRICKS).forceSolidOn(),true,6);
 
-    public static final Block LANCIUM_PILLAR = register("lancium_pillar",RotatedPillarBlock::new,BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).sound(SoundType.NETHERITE_BLOCK),true,6);
+    public static final Block LANCIUM_PILLAR = register("lancium_pillar",RotatedPillarBlock::new,BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK),true,6);
 
     /* - registry/helper functions - */
 
