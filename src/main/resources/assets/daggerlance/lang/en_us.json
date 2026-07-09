@@ -10,7 +10,7 @@
   "block.daggerlance.lancium_brick_stairs": "Lancium Brick Stairs",
   "block.daggerlance.lancium_brick_slab": "Lancium Brick Slab",
   "block.daggerlance.lancium_brick_wall": "Lancium Brick Wall",
-
+  "gamerule.daggerlance.require_weapon_to_drop_daggerlance" : "Require specific weapon to drop Daggerlance",
   "death.attack.parry": "%1$s was overwhelmed",
 
   "trim_material.daggerlance.lancium": "Lancium Material",

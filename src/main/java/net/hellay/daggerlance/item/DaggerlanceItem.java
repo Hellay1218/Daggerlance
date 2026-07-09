@@ -167,13 +167,12 @@ public class DaggerlanceItem extends SingleSlotAbilityItem {
         return super.releaseUsing(itemStack, level, livingEntity, i);
     }
 
-
     @Override
-    public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @org.jspecify.annotations.Nullable EquipmentSlot equipmentSlot) {
-        super.inventoryTick(itemStack, serverLevel, entity, equipmentSlot);
-        if (entity instanceof LivingEntity livingEntity) {
+    public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int i) {
+        super.onUseTick(level, livingEntity, itemStack, i);
+        if (level instanceof  ServerLevel serverLevel) {
             if (livingEntity.getUseItemRemainingTicks() <= 1 && livingEntity.isUsingItem()) {
-                    itemStack.releaseUsing(serverLevel,livingEntity,0);
+                itemStack.releaseUsing(serverLevel,livingEntity,0);
             }
         }
     }
