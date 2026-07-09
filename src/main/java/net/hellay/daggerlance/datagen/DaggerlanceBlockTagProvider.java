@@ -1,17 +1,17 @@
 package net.hellay.daggerlance.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.hellay.daggerlance.init.DaggerlanceBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class DaggerlanceBlockTagProvider extends FabricTagProvider.BlockTagProvider {
+public class DaggerlanceBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
 
-    public DaggerlanceBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public DaggerlanceBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

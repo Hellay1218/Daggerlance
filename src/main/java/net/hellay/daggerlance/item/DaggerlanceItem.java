@@ -1,5 +1,6 @@
 package net.hellay.daggerlance.item;
 
+import net.akws.chiseled_lib.common.interfaces.item.CustomEffectsItem;
 import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.init.DaggerlanceParticles;
 import net.hellay.daggerlance.item.tooltip.DaggerlanceRuneTooltipComponent;
@@ -8,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
@@ -42,12 +44,16 @@ import java.util.Locale;
 import java.util.Optional;
 
 
-public class DaggerlanceItem extends SingleSlotAbilityItem {
+public class DaggerlanceItem extends SingleSlotAbilityItem implements CustomEffectsItem {
 
     public final static CustomModelData DEFAULT_MODEL_DATA = new CustomModelData(List.of(), List.of(), List.of(DaggerlanceItem.Skin.DEFAULT.getSkinName()), List.of());
     public final static String IMPACT_RUNE_ID = "impact";
     public final static String FEEDBACK_RUNE_ID = "feedback";
 
+    @Override
+    public ParticleOptions sweepParticles(ItemStack stack) {
+        return getSkin(stack).getSweepParticle();
+    }
 
     public DaggerlanceItem(Properties properties) {
         super(properties);
@@ -61,6 +67,8 @@ public class DaggerlanceItem extends SingleSlotAbilityItem {
     public static void setSkin(ItemStack stack, Skin skin) {
         stack.set(DataComponents.CUSTOM_MODEL_DATA,new CustomModelData(List.of(),List.of(),List.of(skin.getSkinName()),List.of()));
     }
+
+
 
     @Override
     public boolean mineBlock(ItemStack itemStack, Level level, BlockState blockState, BlockPos blockPos, LivingEntity livingEntity) {

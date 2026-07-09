@@ -16,13 +16,12 @@ public class DaggerlanceTrimMaterials {
     public static final ResourceKey<TrimMaterial> LANCIUM = ResourceKey.create(Registries.TRIM_MATERIAL, Daggerlance.id("lancium"));
 
     private static void register(BootstrapContext<TrimMaterial> registerable, ResourceKey<TrimMaterial> armorTrimKey, Style style) {
-        TrimMaterial trimMaterial = new TrimMaterial(
-                MaterialAssetGroup.create(armorTrimKey.identifier().getPath()),
-                Component.translatable(Util.makeDescriptionId("trim_material", armorTrimKey.identifier())).withStyle(style));
-        registerable.register(armorTrimKey, trimMaterial);
+        TrimMaterial material = new TrimMaterial(MaterialAssetGroup.create(armorTrimKey.identifier().getPath()),Component.translatable(Util.makeDescriptionId("trim_material", armorTrimKey.identifier())).withStyle(style));
+        registerable.register(armorTrimKey, material);
     }
 
     public static void bootstrap(BootstrapContext<TrimMaterial> registerable) {
         register(registerable, LANCIUM, Style.EMPTY.withColor(TextColor.parseColor("#d59ae9").getOrThrow()));
     }
+
 }

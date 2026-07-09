@@ -1,20 +1,20 @@
 package net.hellay.daggerlance.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.init.DaggerlanceBlocks;
 import net.hellay.daggerlance.init.DaggerlanceItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.ItemTags;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class DaggerlanceItemTagProvider extends FabricTagProvider.ItemTagProvider {
+public class DaggerlanceItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
-
-    public DaggerlanceItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+    public DaggerlanceItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+        super(output, registryLookupFuture);
     }
 
     @Override

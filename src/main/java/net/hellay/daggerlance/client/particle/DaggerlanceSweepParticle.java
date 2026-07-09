@@ -29,7 +29,7 @@ public class DaggerlanceSweepParticle extends SingleQuadParticle {
     }
 
     @Override
-    protected int getLightColor(float f) {
+    protected int getLightCoords(float a) {
         return 15728880;
     }
 

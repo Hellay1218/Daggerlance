@@ -1,7 +1,7 @@
 package net.hellay.daggerlance.init;
 
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.item.DaggerlanceItem;
 import net.minecraft.core.Registry;
@@ -19,7 +19,7 @@ import java.util.List;
 public class DaggerlanceItemGroups {
 
     static {
-        CreativeModeTab tab = FabricItemGroup.builder()
+        CreativeModeTab tab = FabricCreativeModeTab.builder()
                 .title(Component.translatable("itemgroup.daggerlance.daggerlance_group"))
                 .icon(() -> new ItemStack(DaggerlanceItems.LANCIUM_INGOT))
                 .displayItems((displayContext, entries) -> {
@@ -49,22 +49,22 @@ public class DaggerlanceItemGroups {
     }
 
     public static void init() {
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(entries -> {
-            entries.addAfter(Items.NETHERITE_INGOT, DaggerlanceItems.LANCIUM_INGOT);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(entries -> {
+            entries.insertAfter(Items.NETHERITE_INGOT, DaggerlanceItems.LANCIUM_INGOT);
             entries.accept(DaggerlanceItems.BLANK_RUNE);
             entries.accept(DaggerlanceItems.IMPACT_RUNE);
             entries.accept(DaggerlanceItems.FEEDBACK_RUNE);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> {
-            entries.addAfter(Items.NETHERITE_SWORD, DaggerlanceItems.DAGGERLANCE);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(entries -> {
+            entries.insertAfter(Items.NETHERITE_SWORD, DaggerlanceItems.DAGGERLANCE);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(fabricItemGroupEntries -> {
-            fabricItemGroupEntries.addAfter(Items.NETHERITE_BLOCK,DaggerlanceBlocks.LANCIUM_BLOCK);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS).register(fabricItemGroupEntries -> {
+            fabricItemGroupEntries.insertAfter(Items.NETHERITE_BLOCK,DaggerlanceBlocks.LANCIUM_BLOCK);
         });
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(fabricItemGroupEntries -> {
-            fabricItemGroupEntries.addBefore(Items.AMETHYST_BLOCK,DaggerlanceBlocks.LANCIUM_PILLAR,DaggerlanceBlocks.LANCIUM_BRICKS, DaggerlanceBlocks.LANCIUM_BRICK_STAIRS,DaggerlanceBlocks.LANCIUM_BRICK_WALL,DaggerlanceBlocks.LANCIUM_BRICK_SLAB);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS).register(fabricItemGroupEntries -> {
+            fabricItemGroupEntries.insertBefore(Items.AMETHYST_BLOCK,DaggerlanceBlocks.LANCIUM_PILLAR,DaggerlanceBlocks.LANCIUM_BRICKS, DaggerlanceBlocks.LANCIUM_BRICK_STAIRS,DaggerlanceBlocks.LANCIUM_BRICK_WALL,DaggerlanceBlocks.LANCIUM_BRICK_SLAB);
         });
     }
 

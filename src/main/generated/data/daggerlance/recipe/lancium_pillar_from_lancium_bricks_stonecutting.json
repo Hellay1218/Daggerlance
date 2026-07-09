@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "daggerlance:lancium_bricks",
   "result": {
-    "count": 1,
     "id": "daggerlance:lancium_pillar"
   }
 }

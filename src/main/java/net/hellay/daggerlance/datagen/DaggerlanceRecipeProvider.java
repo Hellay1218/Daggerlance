@@ -1,6 +1,6 @@
 package net.hellay.daggerlance.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.hellay.daggerlance.init.DaggerlanceBlocks;
 import net.hellay.daggerlance.init.DaggerlanceItems;
@@ -15,7 +15,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class DaggerlanceRecipeProvider extends FabricRecipeProvider {
 
-    public DaggerlanceRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+
+    public DaggerlanceRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

@@ -1,9 +1,8 @@
 package net.hellay.daggerlance.networking;
 
+import net.akws.chiseled_lib.client.camera.screenflash.ColourFlash;
+import net.akws.chiseled_lib.client.camera.screenflash.Flashes;
 import net.hellay.daggerlance.Daggerlance;
-import net.hellay.daggerlance.client.hud.screenflash.ColourFlash;
-import net.hellay.daggerlance.client.hud.screenflash.Flash;
-import net.hellay.daggerlance.client.hud.screenflash.Flashes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;

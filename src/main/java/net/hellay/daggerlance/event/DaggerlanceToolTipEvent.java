@@ -1,7 +1,7 @@
 package net.hellay.daggerlance.event;
 
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback;
 import net.hellay.daggerlance.client.hud.DaggerlanceTooltipComponent;
 import net.hellay.daggerlance.init.DaggerlanceDataComponents;
 import net.hellay.daggerlance.init.DaggerlanceItems;
@@ -53,7 +53,7 @@ public class DaggerlanceToolTipEvent {
             }
         });
 
-        TooltipComponentCallback.EVENT.register((a) -> a instanceof DaggerlanceRuneTooltipComponent(
+        ClientTooltipComponentCallback.EVENT.register((a) -> a instanceof DaggerlanceRuneTooltipComponent(
                 net.minecraft.world.item.ItemStack stack
         ) ? new DaggerlanceTooltipComponent(stack) : null);
 

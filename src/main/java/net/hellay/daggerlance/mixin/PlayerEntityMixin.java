@@ -89,14 +89,4 @@ public abstract class PlayerEntityMixin {
 
         return inRange && (stack.getItem() instanceof DaggerlanceItem && player.isUsingItem() && player.getUsedItemHand() == hand && player.getUseItemRemainingTicks() >= stack.getItem().getUseDuration(stack,player) / 4);
     }
-
-    @WrapOperation(method = "doSweepAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"))
-    private int daggerlance$modifySweepParticles(ServerLevel instance, ParticleOptions particleOptions, double d, double e, double f, int i, double g, double h, double j, double k, Operation<Integer> original) {
-        Player player = (Player) (Object) this;
-        ItemStack weapon = player.getWeaponItem();
-        if (player.getWeaponItem().getItem() instanceof DaggerlanceItem) {
-            particleOptions = DaggerlanceItem.getSkin(weapon).getSweepParticle();
-        }
-        return original.call(instance,particleOptions,d,e,f,i,g,h,j,k);
-    }
 }

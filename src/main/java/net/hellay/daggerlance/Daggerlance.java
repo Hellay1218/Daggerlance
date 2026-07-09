@@ -42,6 +42,6 @@ public class Daggerlance implements ModInitializer {
 
         // events
         WitherSkeletonDeathEvent.init();
-        PayloadTypeRegistry.playS2C().register(ParryS2CPayload.TYPE, ParryS2CPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ParryS2CPayload.TYPE, ParryS2CPayload.CODEC);
     }
 }
