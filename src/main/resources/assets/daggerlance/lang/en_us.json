@@ -12,7 +12,11 @@
   "block.daggerlance.lancium_brick_wall": "Lancium Brick Wall",
 
   "death.attack.parry": "%1$s was overwhelmed",
-  "gamerule.daggerlance.require_weapon_to_drop_daggerlance" : "Require specific weapon to drop Daggerlance",
+  "gamerule.daggerlance.require_weapon_to_drop_daggerlance" : "Require Specific Weapon To Drop Daggerlance",
+  "gamerule.daggerlance.parry_tick_damage" : "Parry Damage Per Tick",
+  "gamerule.daggerlance.parry_tick_length" : "Parry Tick Length",
+  "gamerule.daggerlance.parry_entity_limit" : "Parry Entity Limit",
+
   "trim_material.daggerlance.lancium": "Lancium Material",
 
   "itemgroup.daggerlance.daggerlance_group": "Daggerlance",
@@ -22,7 +26,6 @@
   "tooltip.daggerlance.name.rose": "Rose",
   "tooltip.daggerlance.name.jade": "Jade",
   "tooltip.daggerlance.name.moon": "Moon",
-
   "tooltip.daggerlance.rune.blank": "Blank",
   "tooltip.daggerlance.rune.blank.explain": "a Blank Rune, does nothing",
   "tooltip.daggerlance.rune.impact": "Impact",
@@ -33,8 +36,19 @@
   "tooltip.daggerlance.lore.default": "Shift right click on an anvil or\nsmithing table to change skin",
   "tooltip.daggerlance.lore.vana": "A good example of barrens craftsmanship. Vana is an ore used by barrens \nthat is found in their dimension. After many years they have mastered using vana\nto the point that they can make advance items that nobody can replicate.\nThis is purely designed to permanently harm your opponent, a dead soldier is \nthe proof of how strong their will is, an injured one is the proof of how far\nbarrens will to go to make you suffer before death",
   "tooltip.daggerlance.lore.hidden":"Press [Shift] to show more",
+
   "advancements.task.daggerlance.rune": "create a lancium rune by fusing two items under heat",
   "advancements.task.daggerlance.backstabbed": "get your first daggerlance",
   "advancements.task.daggerlance.lancium": "Get your first lancium ingot by burning a daggerlance",
-  "advancements.challenge.daggerlance.kill_wither_skeleton": "kill a wither skeleton with a daggerlance"
+  "advancements.challenge.daggerlance.kill_wither_skeleton": "kill a wither skeleton with a daggerlance",
+
+  "daggerlance.midnightconfig.flash_config_title":"Parry Flash Config",
+  "daggerlance.midnightconfig.render_parry_flash":"Render Parry Flash",
+  "daggerlance.midnightconfig.parry_flash_colour":"Parry Flash Color",
+  "daggerlance.midnightconfig.parry_timer_length":"Parry Timer Length",
+  "daggerlance.midnightconfig.parry_damage_per_tick":"Parry Damage Per Tick",
+  "daggerlance.midnightconfig.extra_configs":"Extra Configuration Options Are Available In The Server-Side Config",
+  "daggerlance.midnightconfig.category.extra":"Extra",
+  "daggerlance.midnightconfig.category.client":"Client-side"
+
 }

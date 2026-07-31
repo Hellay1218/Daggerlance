@@ -19,7 +19,7 @@ public class DaggerlanceLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(DaggerlanceBlocks.LANCIUM_BLOCK);
         dropSelf(DaggerlanceBlocks.LANCIUM_BRICKS);
         dropSelf(DaggerlanceBlocks.LANCIUM_BRICK_STAIRS);
-        dropSelf(DaggerlanceBlocks.LANCIUM_BRICK_SLAB);
+        add(DaggerlanceBlocks.LANCIUM_BRICK_SLAB,createSlabItemTable(DaggerlanceBlocks.LANCIUM_BRICK_SLAB));
         dropSelf(DaggerlanceBlocks.LANCIUM_BRICK_WALL);
         dropSelf(DaggerlanceBlocks.LANCIUM_PILLAR);
     }

@@ -1,5 +1,6 @@
 package net.hellay.daggerlance.item;
 
+import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.init.DaggerlanceDataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -26,7 +27,7 @@ public class SingleSlotAbilityItem extends Item {
         if (slot.getItem().get(DaggerlanceDataComponents.DAGGERLANCE_RUNE) == null || !slot.allowModification(player)) {
             return false;
         } else {
-            if (!player.getCooldowns().isOnCooldown(stack) && stored.isEmpty() && !cursorStackReference.get().isEmpty() && clickType.equals(ClickAction.PRIMARY) && shouldITakeAndShoveThisItemInMyItemSlot(cursorStackReference.get())) {
+            if (!player.getCooldowns().isOnCooldown(stack) && stored.isEmpty() && !cursorStackReference.get().isEmpty() && (Daggerlance.enchancementLoaded ? clickType.equals(ClickAction.SECONDARY) : clickType.equals(ClickAction.PRIMARY)) && shouldITakeAndShoveThisItemInMyItemSlot(cursorStackReference.get())) {
                 stack.set(DaggerlanceDataComponents.DAGGERLANCE_RUNE, cursorStackReference.get());
                 if (cursorStackReference.get().getCount() > 1) {
                     ItemStack newStack = cursorStackReference.get();
@@ -39,7 +40,7 @@ public class SingleSlotAbilityItem extends Item {
                 playSlotEmptySound(player,stack);
                 player.getCooldowns().addCooldown(stack, 10);
                 return true;
-            } else if (!player.getCooldowns().isOnCooldown(stack) && !stored.isEmpty() && cursorStackReference.get().isEmpty() && clickType.equals(ClickAction.SECONDARY)) {
+            } else if (!player.getCooldowns().isOnCooldown(stack) && !stored.isEmpty() && cursorStackReference.get().isEmpty() && clickType == ClickAction.SECONDARY) {
                 cursorStackReference.set(stored);
                 stack.set(DaggerlanceDataComponents.DAGGERLANCE_RUNE, ItemStack.EMPTY);
                 onContentChanged(player);

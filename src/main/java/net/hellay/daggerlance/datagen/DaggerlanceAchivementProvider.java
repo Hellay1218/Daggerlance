@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.init.DaggerlanceItems;
+import net.hellay.daggerlance.init.DaggerlanceTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRewards;
@@ -94,7 +95,7 @@ public class DaggerlanceAchivementProvider extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .addCriterion("rune_fusion", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(itemHolderLookup,Daggerlance.RUNE)))
+                .addCriterion("rune_fusion", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(itemHolderLookup, DaggerlanceTags.RUNE)))
                 .save(consumer, "daggerlance/fusion");
     }
 }

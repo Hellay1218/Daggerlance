@@ -2,8 +2,6 @@ package net.hellay.daggerlance.init;
 
 import com.mojang.serialization.Codec;
 import net.hellay.daggerlance.Daggerlance;
-import net.hellay.daggerlance.client.hud.DaggerlanceTooltipComponent;
-import net.hellay.daggerlance.item.DaggerlanceItem;
 import net.hellay.daggerlance.item.tooltip.DaggerlanceRuneTooltipComponent;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;

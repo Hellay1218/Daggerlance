@@ -4,7 +4,6 @@ import net.akws.chiseled_lib.common.interfaces.item.CustomEffectsItem;
 import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.init.DaggerlanceParticles;
 import net.hellay.daggerlance.item.tooltip.DaggerlanceRuneTooltipComponent;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -18,7 +17,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -26,10 +26,8 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
-import net.minecraft.world.item.SwingAnimationType;
 import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -146,6 +144,7 @@ public class DaggerlanceItem extends SingleSlotAbilityItem implements CustomEffe
                 return InteractionResult.SUCCESS;
             }
             level.playSound(context.getPlayer(), pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS);
+            context.getPlayer().getCooldowns().addCooldown(stack,5);
         }
         return super.useOn(context);
     }
@@ -154,7 +153,7 @@ public class DaggerlanceItem extends SingleSlotAbilityItem implements CustomEffe
     public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack stack = player.getItemInHand(interactionHand);
         if (getRune(stack) != "empty" && getRune(stack) != "blank") {
-            if (getRune(stack).equals(FEEDBACK_RUNE_ID)) {
+            if (getRune(stack).equals(FEEDBACK_RUNE_ID) && !player.isShiftKeyDown()) {
                 player.startUsingItem(interactionHand);
                 return InteractionResult.SUCCESS;
             }
@@ -179,7 +178,7 @@ public class DaggerlanceItem extends SingleSlotAbilityItem implements CustomEffe
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int i) {
         super.onUseTick(level, livingEntity, itemStack, i);
         if (level instanceof  ServerLevel serverLevel) {
-            if (livingEntity.getUseItemRemainingTicks() <= 1 && livingEntity.isUsingItem()) {
+            if (livingEntity.getUseItemRemainingTicks() <= 1 && livingEntity.isUsingItem() && getRune(itemStack) == FEEDBACK_RUNE_ID) {
                 itemStack.releaseUsing(serverLevel,livingEntity,0);
             }
         }

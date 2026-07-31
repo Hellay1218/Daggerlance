@@ -1,20 +1,52 @@
 {
   "model": {
     "type": "minecraft:select",
-    "property": "minecraft:custom_model_data",
+    "property": "minecraft:display_context",
     "cases": [
       {
-        "when": "gold",
+        "when": [
+          "fixed",
+          "gui",
+          "ground",
+          "on_shelf"
+        ],
         "model": {
           "type": "minecraft:select",
-          "property": "minecraft:display_context",
+          "property": "minecraft:custom_model_data",
           "cases": [
             {
+              "when": "moon",
+              "model": {
+                "type": "minecraft:model",
+                "model": "daggerlance:item/daggerlances/moon_daggerlance"
+              }
+            },
+            {
+              "when": "jade",
+              "model": {
+                "type": "minecraft:model",
+                "model": "daggerlance:item/daggerlances/jade_daggerlance"
+              }
+            },
+            {
+              "when": "vana",
+              "model": {
+                "type": "minecraft:model",
+                "model": "daggerlance:item/daggerlances/vana_daggerlance"
+              }
+            },
+            {
               "when": [
-                "ground",
-                "fixed",
-                "gui"
+                "rose",
+                "empathy"
               ],
+              "model": {
+                "type": "minecraft:model",
+                "model": "daggerlance:item/daggerlances/empathy_daggerlance"
+              }
+            },
+            {
+              "when": "gold",
               "model": {
                 "type": "minecraft:model",
                 "model": "daggerlance:item/daggerlances/gold_daggerlance"
@@ -23,120 +55,51 @@
           ],
           "fallback": {
             "type": "minecraft:model",
-            "model": "daggerlance:item/daggerlances/gold_daggerlance_handheld"
-          }
-        }
-      },
-      {
-        "when": "moon",
-        "model": {
-          "type": "minecraft:select",
-          "property": "minecraft:display_context",
-          "cases": [
-            {
-              "when": [
-                "ground",
-                "fixed",
-                "gui"
-              ],
-              "model": {
-                "type": "minecraft:model",
-                "model": "daggerlance:item/daggerlances/moon_daggerlance"
-              }
-            }
-          ],
-          "fallback": {
-            "type": "minecraft:model",
-            "model": "daggerlance:item/daggerlances/moon_daggerlance_handheld"
-          }
-        }
-      },
-      {
-        "when": ["rose","empathy"],
-        "model": {
-          "type": "minecraft:select",
-          "property": "minecraft:display_context",
-          "cases": [
-            {
-              "when": [
-                "ground",
-                "fixed",
-                "gui"
-              ],
-              "model": {
-                "type": "minecraft:model",
-                "model": "daggerlance:item/daggerlances/empathy_daggerlance"
-              }
-            }
-          ],
-          "fallback": {
-            "type": "minecraft:model",
-            "model": "daggerlance:item/daggerlances/empathy_daggerlance_handheld"
-          }
-        }
-      },
-      {
-        "when": "vana",
-        "model": {
-          "type": "minecraft:select",
-          "property": "minecraft:display_context",
-          "cases": [
-            {
-              "when": [
-                "ground",
-                "fixed",
-                "gui"
-              ],
-              "model": {
-                "type": "minecraft:model",
-                "model": "daggerlance:item/daggerlances/vana_daggerlance"
-              }
-            }
-          ],
-          "fallback": {
-            "type": "minecraft:model",
-            "model": "daggerlance:item/daggerlances/vana_daggerlance_handheld"
-          }
-        }
-      },
-      {
-        "when": "jade",
-        "model": {
-          "type": "minecraft:select",
-          "property": "minecraft:display_context",
-          "cases": [
-            {
-              "when": [
-                "ground",
-                "fixed",
-                "gui"
-              ],
-              "model": {
-                "type": "minecraft:model",
-                "model": "daggerlance:item/daggerlances/jade_daggerlance"
-              }
-            }
-          ],
-          "fallback": {
-            "type": "minecraft:model",
-            "model": "daggerlance:item/daggerlances/jade_daggerlance_handheld"
+            "model": "daggerlance:item/daggerlances/daggerlance"
           }
         }
       }
     ],
     "fallback": {
       "type": "minecraft:select",
-      "property": "minecraft:display_context",
+      "property": "minecraft:custom_model_data",
       "cases": [
         {
           "when": [
-            "ground",
-            "fixed",
-            "gui"
+            "rose",
+            "empathy"
           ],
           "model": {
             "type": "minecraft:model",
-            "model": "daggerlance:item/daggerlances/daggerlance"
+            "model": "daggerlance:item/daggerlances/empathy_daggerlance_handheld"
+          }
+        },
+        {
+          "when": "moon",
+          "model": {
+            "type": "minecraft:model",
+            "model": "daggerlance:item/daggerlances/moon_daggerlance_handheld"
+          }
+        },
+        {
+          "when": "gold",
+          "model": {
+            "type": "minecraft:model",
+            "model": "daggerlance:item/daggerlances/gold_daggerlance_handheld"
+          }
+        },
+        {
+          "when": "jade",
+          "model": {
+            "type": "minecraft:model",
+            "model": "daggerlance:item/daggerlances/jade_daggerlance_handheld"
+          }
+        },
+        {
+          "when": "vana",
+          "model": {
+            "type": "minecraft:model",
+            "model": "daggerlance:item/daggerlances/vana_daggerlance_handheld"
           }
         }
       ],

@@ -19,6 +19,7 @@ public class DaggerlanceDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(DaggerlanceRecipeProvider::new);
         pack.addProvider(DaggerlanceRegistriesProvider::new);
         pack.addProvider(DaggerlanceAchivementProvider::new);
+        pack.addProvider(DaggerlanceDamageTypeTagProvider::new);
     }
 
     @Override

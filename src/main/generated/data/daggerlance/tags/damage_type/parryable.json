@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:is_player_attack",
+      "required": false
+    },
+    {
+      "id": "#minecraft:mace_smash",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_projectile",
+      "required": false
+    },
+    {
+      "id": "minecraft:mob_attack",
+      "required": false
+    },
+    {
+      "id": "minecraft:spear",
+      "required": false
+    }
+  ]
+}

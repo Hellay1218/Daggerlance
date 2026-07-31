@@ -30,7 +30,7 @@ public class DaggerlanceTooltipComponent implements ClientTooltipComponent {
     public void extractImage(Font font, int i, int j, int k, int l, GuiGraphicsExtractor guiGraphics) {
         ClientTooltipComponent.super.extractImage(font, i, j, k, l, guiGraphics);
         int x = i + k - 20;
-        int y = j + l / 9 * 4;
+        int y = j + l / 20 * 8;
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Daggerlance.id("rune_outline"),x,y,16,16);
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Daggerlance.id("rune_border"),x,y,16,16);
         guiGraphics.item(stack.getOrDefault(DaggerlanceDataComponents.DAGGERLANCE_RUNE,ItemStack.EMPTY),x,y);

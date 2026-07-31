@@ -1,11 +1,16 @@
 package net.hellay.daggerlance;
 
+import eu.midnightdust.lib.config.MidnightConfig;
+import eu.midnightdust.lib.config.MidnightConfigScreen;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.loader.api.FabricLoader;
+import net.hellay.daggerlance.config.DaggerlanceConfigMenu;
 import net.hellay.daggerlance.event.WitherSkeletonDeathEvent;
 import net.hellay.daggerlance.init.*;
 import net.hellay.daggerlance.networking.ParryS2CPayload;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
@@ -22,16 +27,14 @@ public class Daggerlance implements ModInitializer {
     public static Identifier id(String name) {
         return Identifier.fromNamespaceAndPath(MOD_ID, name);
     }
-
-    public static final TagKey<Item> DAGGERLANCE_DROPPING_WEAPON = TagKey.create(Registries.ITEM, id("drops_daggerlance"));
-    public static final TagKey<Item> LANCIUM_MATERIAL = TagKey.create(Registries.ITEM, id("lancium_material"));
-    public static final TagKey<Item> RUNE = TagKey.create(Registries.ITEM, id("rune"));
-
     public static final GameRule<Boolean> SHOULD_REQUIRE_SPECIFIC_WEAPON_TO_DROP_DAGGERLANCE = GameRuleBuilder.forBoolean(true).category(GameRuleCategory.DROPS).buildAndRegister(id("require_weapon_to_drop_daggerlance"));
 
+    public static boolean enchancementLoaded = false;
 
     @Override
     public void onInitialize() {
+        //Daggerlance.enchancementLoaded = FabricLoader.getInstance().isModLoaded("enchancement");
+
         // registries
         DaggerlanceItems.init();
         DaggerlanceBlocks.init();
@@ -39,9 +42,12 @@ public class Daggerlance implements ModInitializer {
         DaggerlanceParticles.init();
         DaggerlanceDataComponents.init();
         DaggerlanceDamageTypes.init();
+        DaggerlanceTags.init();
 
         // events
         WitherSkeletonDeathEvent.init();
         PayloadTypeRegistry.clientboundPlay().register(ParryS2CPayload.TYPE, ParryS2CPayload.CODEC);
+
+        MidnightConfig.init(MOD_ID, DaggerlanceConfigMenu.class);
     }
 }

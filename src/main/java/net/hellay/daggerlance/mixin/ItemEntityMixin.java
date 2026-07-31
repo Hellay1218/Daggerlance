@@ -3,20 +3,18 @@ package net.hellay.daggerlance.mixin;
 import net.hellay.daggerlance.Daggerlance;
 import net.hellay.daggerlance.init.DaggerlanceDataComponents;
 import net.hellay.daggerlance.init.DaggerlanceItems;
+import net.hellay.daggerlance.init.DaggerlanceTags;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FireBlock;
-import net.minecraft.world.level.block.SoulFireBlock;
 import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,7 +33,7 @@ public abstract class ItemEntityMixin {
         ItemStack item = itemEntity.getItem();
         Block block = itemEntity.level().getBlockState(itemEntity.blockPosition()).getBlock();
 
-        if (itemEntity.getItem().is(Daggerlance.LANCIUM_MATERIAL)) {
+        if (itemEntity.getItem().is(DaggerlanceTags.LANCIUM_MATERIAL)) {
             if (itemEntity.isOnFire() && (item.has(DaggerlanceDataComponents.LANCIUM_BURN_DROP) || item.is(DaggerlanceItems.DAGGERLANCE))) {
                 int count = item.is(DaggerlanceItems.DAGGERLANCE) ? itemEntity.getRandom().nextIntBetweenInclusive(3,5) : item.getOrDefault(DaggerlanceDataComponents.LANCIUM_BURN_DROP,0);
                 drop.setCount(count);
