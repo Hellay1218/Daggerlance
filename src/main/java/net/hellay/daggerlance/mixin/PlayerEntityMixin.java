@@ -43,6 +43,8 @@ public abstract class PlayerEntityMixin {
         if (daggerlance$itemCheckForParry(InteractionHand.MAIN_HAND, player, source) || daggerlance$itemCheckForParry(InteractionHand.OFF_HAND, player, source)) {
             float damageModifer = (float) DaggerlanceConfigMenu.parry_damage_modifer;
             original.call(player, player.getHealth() - dmg * damageModifer);
+        } else {
+            original.call(player,v);
         }
     }
 
